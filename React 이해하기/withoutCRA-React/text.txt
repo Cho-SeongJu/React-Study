@@ -1,0 +1,32 @@
+################################################################################
+CRA없이 새로운 리액트 앱 만들기
+
+React 앱을 만들기 위해 필수적인 개발 도구들
+Babel, Webpack, HMR(hot-module-replacement)
+
+CRA는 다 있다.
+
+
+Babel
+공식 문서 링크 : https://babeljs.io/docs/en/index.html
+예전에는 ES6가 최신 문법이라 브라우저에서 이 최신 문법을 다 읽지 못했는데
+이 Babel이 ES6로 작성된 문법을 ES5로 변환하여 읽어주는 역할을 하였다.
+
+Babel은 어떤 코드의 형태를 A에서 B로 변경해주는 컴파일러이다.
+
+Babel은 JSX라는 문법도 변환할 수 있다.
+JSX는 React코드를 작성하기 위한 문법이다.
+JSX도 JS표준이 아니라 이 브라우저가 JSX를 읽지 못한다. 따라서, Babel이 JSX를 JS코드로 변환해준다.
+
+*preset : 필요로 하는 관련된 코드의 묶음
+
+Babel이 JSX -> JS로 트랜스파일링 해주는 것을 직접 확인해보자.
+
+npm init
+: 위치해있는 폴더를 초기화한다.
+
+npm instatll react react-dom
+: react와 react-dom이라는 패키지를 설치
+
+package.json에 react와 react-dom 잘 설치됨
+
