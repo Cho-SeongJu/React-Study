@@ -4,3 +4,5 @@ Create React App
 
 CRA npx로 다운로드
 npx create-react-app cra(= 파일명)
+
+package.json 이 패키지에 대한 정보를 모두 담고 있음
