@@ -1,7 +1,0 @@
-########################################
-개인적으로 공부하는 React 코드들을 저장해두는 Repository입니다.
-
-React 이해하기 → React를 추가 또는 생성하는 방법에 대한 공간
-1. html,js,css에 react 추가하는 방법
-2. CRA(Create React Application) 프로젝트 생성 방법
-3. CRA를 사용하지 않고 react 프로젝트 생성 방법
