@@ -22,6 +22,9 @@ JSX도 JS표준이 아니라 이 브라우저가 JSX를 읽지 못한다. 따라
 
 Babel이 JSX -> JS로 트랜스파일링 해주는 것을 직접 확인해보자.
 
+
+#### react, react-dom 세팅하기 ####
+
 npm init
 : 위치해있는 폴더를 초기화한다.
 
@@ -30,3 +33,24 @@ npm instatll react react-dom
 
 package.json에 react와 react-dom 잘 설치됨
 
+
+
+#### Babel 세팅하기 ####
+
+npm i -D @babel/core @babel/cli @babel/preset-react
+
+preset-react : react에 관련된 코드들을 컴파일
+babel/cli : 터미널에서 명령을 통해 바벨을 적용시킬 수 있도록 도와주는 패키지
+babel/core : 바벨을 사용하기 위해서 필수로 필요로 하는 패키지
+
+설치를 하면 devDependencies에 추가됨
+
+-D 옵션을 주면 devDependencies에 추가됨
+
+## Babel 돌리기 ##
+npx babel src/Component/FollowButton.js --presets=@babel/preset-react
+=> JSX 문법으로 작성한 코드들을 JS 코드로 변환해서 출력한다.
+
+매번 --preset= ~ 옵션을 주는게 번거롭기 때문에 바벨에 대한 환경 설정은 babel.confing.js 라는 별도의 파일을 만들어 이 파일을 실행한다.
+
+presets -> 이 배열에 고정으로 할 기능들을 넣는다.
