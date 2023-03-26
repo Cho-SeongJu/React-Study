@@ -102,3 +102,19 @@ dist 폴더에 bundle.js에 결과물이 저장된다. 모든 js를 하나로 �
 
 
 #### HMR(hot-module-replacement) 세팅하기 ####
+webpack을 한번 더 돌렸는데 개발을 하다보면 어떤 부분 코드를 수정하면 바로 확인하고 하는게 생산성을 높여주는데
+수정하면 매번 번들링하기 위해 webpack을 다시 실행해야하는 것은 번거롭기 때문에 이걸 해소해준다.
+
+HMR : 웹팩에서 제공하는 가장 유용한 기능 중 하나이고 모든 종류의 모듈을 새로고침 할 필요없이 런타임에 업데이트 할 수 있다.
+
+HMR 설치
+npm install -D webpack-dev-server
+
+webpack.config.js에 아래 코드 추가
+devServer: {
+    static: "./dist", // 이 dist파일에 업데이트가 발생할 때 마다 계속 바로바로 런타임을 업데이트 해주는 명령을 실행한다.
+    hot: true,
+  },
+
+npx webpack serve
+loopback 링크로 들어가서 개발하면 된다.

@@ -20,4 +20,9 @@ module.exports = {
     path: path.resolve(__dirname, "dist"), // 파일명 dist폴더가 만들어지고 그 안에 output된 결과가 저장된다.
     filename: "bundle.js", // 파일명
   },
+
+  devServer: {
+    static: "./dist", // 이 dist파일에 업데이트가 발생할 때 마다 계속 바로바로 런타임을 업데이트 해주는 명령을 실행한다.
+    hot: true,
+  },
 };
