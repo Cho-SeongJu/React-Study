@@ -6,8 +6,7 @@ Babel, Webpack, HMR(hot-module-replacement)
 
 CRA는 다 있다.
 
-
-Babel
+## Babel이란?
 공식 문서 링크 : https://babeljs.io/docs/en/index.html
 예전에는 ES6가 최신 문법이라 브라우저에서 이 최신 문법을 다 읽지 못했는데
 이 Babel이 ES6로 작성된 문법을 ES5로 변환하여 읽어주는 역할을 하였다.
@@ -54,3 +53,52 @@ npx babel src/Component/FollowButton.js --presets=@babel/preset-react
 매번 --preset= ~ 옵션을 주는게 번거롭기 때문에 바벨에 대한 환경 설정은 babel.confing.js 라는 별도의 파일을 만들어 이 파일을 실행한다.
 
 presets -> 이 배열에 고정으로 할 기능들을 넣는다.
+
+
+#### Webpack 세팅하기 ####
+번들러 
+번들러(Bundler)는 분리된 JavaScript와 CSS 모듈 코드를 브라우저에 최적화 된 여러 개의 파일로 결합한다. React 애플리케이션에서 널리 사용되는 번들러에는
+Webpack과 Browserify가 있다.
+
+webpack은 여러개의 파일들을 하나로 묶어 static한 assets으로 만들어주는 역할을 한다.
+
+https://webpack.js.org/
+
+
+싱글 페이지 애플리케이션(Single-page Application, SPA)은 하나의 HTML 페이지와 애플리케이션 실행에 필요한 JS와 CSS 같은 모든 자산을 로드하는 애플리케이션이다.
+싱글 페이지 애플리케이션란 기본적으로 하나의 js파일을 가지고 있고 그 js파일을 html에서 로드를 함으로써 이제 유저들에게 보여주게 된다. 
+이걸 webpack이 하나의 js파일로 만들어주는 것을 도와주는 것이다.
+
+webpack.config.js 파일을 만들어 webpack에서 사용할 환경설정을 한다.
+
+
+npm i -D webpack webpack-cli html-webpack-plugin babel-loader
+webpack : webpack을 실행하기 위한 필수적인 패키지
+
+webpack-cli : 터미널에서 웹팩을 돌리기 위해서 필요한 패키지
+
+babel-loader :
+{ test: /\.js$/, use: "babel-loader" } 모든 js파일을 읽겠다 라는 뜻. 이 파일들을 읽으면서 babel-loader을 적용하겠다.
+webpack이 파일을 불러들일때도 JSX를 읽는데 webpack은 JSX를 못읽기 때문에 번들링하는 과정에서 babel-loader를 통해서 우리가 설정한 babel을 돌릴 수 있게 해준다.
+
+html-webpack-plugin :
+결론적으로는 index.html파일에 bundle.js를 붙여줘야하는데 이런것들은 자동으로 해주는 plugin이 있다.
+우리가 만든 bundle.js를 index.html에 적용을 해서 새로운 html 즉, 최종 html파일을 만들어준다.
+
+webpack.config.js에 아래 코드 추가
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+plugins : [
+    new HtmlWebpackPlugin({
+        template : "./public/index.html",
+    })
+  ],
+
+dist 폴더에 bundle.js에 결과물이 저장된다. 모든 js를 하나로 압축된 결과물
+
+이렇게 설정하면 dist에 bundle.js가 자동으로 적용된 index.html이 생성
+
+파일에 변경사항이 생기면 npx webpack을 항상 해줘야한다.
+
+
+#### HMR(hot-module-replacement) 세팅하기 ####

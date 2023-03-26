@@ -1,3 +1,5 @@
+import React from "react";
+
 // React Component!
 // Follow <-> following
 // React Component 추가
@@ -42,7 +44,9 @@ function FollowButton() {
 
   return (
     <div onClick={() => setFollowing(!following)} style={following ? followingBtnStyle : followBtnStyle}>
-      following ? "following" : "follow"
+      {following ? "following" : "follow"}
     </div>
   );
 }
+
+export default FollowButton;
