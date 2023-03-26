@@ -1,0 +1,6 @@
+#################################################################################
+Create React App
+공식 문서 링크 : https://ko.reactjs.org/docs/create-a-new-react-app.html
+
+CRA npx로 다운로드
+npx create-react-app cra(= 파일명)
