@@ -6,3 +6,6 @@ CRA npx로 다운로드
 npx create-react-app cra(= 파일명)
 
 package.json 이 패키지에 대한 정보를 모두 담고 있음
+
+npm start
+=> react-scripts start를 실행하는데 react app을 띄워주는 개발 서버로 띄워주는 역할을 한다.
