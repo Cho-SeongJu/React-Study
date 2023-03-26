@@ -6,4 +6,31 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
 3단계 : React 컴포넌트 만들기
-<script src = "follow_button.js"></script
+<script src = "follow_button.js"></script>
+
+# React.createElement() 함수에 대해 더 알아보기
+
+const element = document.createElement(tagName[, options])
+=> 지정한 tagName의 HTML 요소를 만들어서 반환
+
+const element = React.createElement(component, props, ...children)
+=> ReactElement를 반환
+
+component
+=> 문자열 또는 리액트 컴포넌트
+ - 문자열 일 때는 HTML 태그를 의미. ex) "div"
+ - 리액트 컴포넌트 ex) FollowingButton
+
+props
+=> component가 가질 수 있는 옵션들
+ - ex) style, className...
+
+...children
+=> component가 감싸고 있는 내부 컴포넌트
+ - ex) "following" 등의 텍스트
+ - 리엑트 컴포넌트 ex) "FollowingButton"
+ - ex) React.createElement("p", null, "hello")
+
+# ReactDOM.render() 함수
+- ReactElement를 루트의 DOM 노드에 렌더링 하기 위해서 사용
+- 브라우저 DOM 엘리먼트와 달리 React 엘리먼트는 일반 객체이며(plain object) 쉽게 생성할 수 있다. React DOM은 React 엘리먼트와 일치하도록 DOM을 업데이트한다.
