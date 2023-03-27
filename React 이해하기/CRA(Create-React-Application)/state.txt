@@ -118,3 +118,9 @@ B, C 컴포넌트는 A컴포넌트로부터 props를 받도록 하는게 state �
 
 이렇게 되면 단일 진실 공급원
 데이터를 한곳에서만 제어 편집할수있도록 설계해야한다.
+
+state 끌어올리기 실습
+깃헙 링크
+https://github.com/zerobase-school/2022-frontend-school-react/tree/master/4/4-2/4-2-4
+
+
