@@ -1,0 +1,23 @@
+##############
+lifecycle
+
+예시) 화면에 보여지는 시간을 1초마다 업데이트 해주고 싶다
+우리가 할 일 : 1초 마다 setDate(new Date())를 실행해서 화면을 업데이트 해주자 -> setInterval 함수 사용
+
+컴포넌트가 처음으로 렌더링 될 때 (=DOM에 mount) mount -> dom에 올라갔다 라는 뜻
+window.setInterval()
+
+컴포넌트가 DOM에서 빠졌을 때(=unmount)
+window.clearInterval()
+
+함수 컴포넌트
+- 비교적 최근에 나옴
+- hook() 함수로 컴포넌트의 mount, unmount 되는 시점에 제어할 수 있음
+
+클래스 컴포넌트
+- 리액트 초기에 나옴
+- 생명 주기에 따른 메서드에 따라 제어할 수 있음
+
+생명주기 : 컴포넌트가 mount되고 unmount되는 시점을 그 시간을 생명주기라고 한다.
+
+생명주기 React.component 공식문서 : https://ko.reactjs.org/docs/react-component.html
