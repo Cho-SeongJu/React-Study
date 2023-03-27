@@ -34,7 +34,6 @@ function App() {
 
   console.log(cards);
   console.log(pickedCards);
-  console.log("asd");
 
   return (
     <div>
