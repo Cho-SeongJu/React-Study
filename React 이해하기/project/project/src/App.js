@@ -20,10 +20,11 @@ function App() {
     const randomItem = cards[randomIdx];
 
     // 중복 제거
-    setCards(cards.filter((c) => c.phoneNumber !== randomItem.phoneNumber));
+    console.log(cards.filter((c) => c.phoneNumber !== randomItem.phoneNumber));
+    setCards(cards.filter((c) => c.phoneNumber !== randomItem.phoneNumber)); // 요소들이 randomItem과 동일하지 않은 값들 true 값만
 
     // 당첨자(array) 관리
-    setPickedCards([...pickedCards, randomItem]);
+    setPickedCards([...pickedCards, randomItem]); // spread 문법으로 concat과 동일함 이렇게 하면 이전 배열과 지금 데이터를 더하는 것
   }
 
   useEffect(() => {
