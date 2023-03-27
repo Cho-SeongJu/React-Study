@@ -36,3 +36,36 @@ setState를 한다고 해서 무조건 일어나지 않는다.
 +1 버튼 : 클릭하면 Counter 값을 1 증가
 show and hide 버튼 : 클릭하면 Counter를 나타나거나 사라지게 한다.
 change Operator : +, -, * 중 하나를 랜덤하게 선택하여 Counter 계산에 적용한다.
+
+### 참조 타입(Referenc type) state 다루어보기 
+const [count, setCount] = useState(0);
+const [show, setShow] = useState(true);
+const operators = ["+", "-", "*"];
+
+이 구조를 참조타입으로 하나로 합치면
+const [info, setInfo] = useState({
+    count : 0,
+    show: true,
+    operator: operators[0],
+});
+이렇게 가능하다.
+
+이렇게 하고 이제 setInfo({...info, operator : ~})
+이렇게 해서 원래 info의 값고 새로운 operator를 비교해서 다르면 리랜더링한다.
+
+객체는 참조타입이기 때문에 만약 새로운 변수에 객체를 복사하면 이건 얕은 복사이기 떄문에
+똑같은 메모리 주소를 가르키고 값을 변경한다고 하면 리엑트에서 이 값들이 변경한 것을 탐지를 못하기 떄문에
+꼭 스프레드 문법으로 스프레드 객체와 값을 넘겨줘야 한다.
+
+Array도 가능하다
+import React, {useState} from "react";
+const [array, setArray] = useState("a","b", "c","d");
+
+<잘못된 사용법>
+array[0] = "e"
+const newArray = array
+ex) setArray(newArray)
+
+<올바른 사용법>
+ex) setArray([...array, newItem])
+ex) setArray(array.filter(arr => {}))
