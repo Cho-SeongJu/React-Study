@@ -1,0 +1,22 @@
+#component와 props
+
+## component
+
+공식문서 링크 : https://ko.reactjs.org/docs/components-and-props.html
+
+컴포넌트를 통해 UI를 재사용 가능한 개별적인 여러조각으로 나누고, 각 조각을 개별적으로 살펴볼 수 있다.
+
+컴포넌트는 항상 대문자로 시작해야 한다.
+
+컴포넌트는 쉽게 생각하면 Header, body(안에 각 내용들), footer 등으로 나누는 개념이다.
+
+함수 컴포넌트와 클래스 컴포넌트
+
+컴포넌트를 정의하는 가장 간단한 방법은 JavaScript함수를 작성하는 것이다.
+Header.js에 기존에 App.js에 있던 Header코드들을 넣고 export한다음
+App.js에서 import하여 <Header /> 이렇게 하면 된다.
+
+또한 ES6 class를 사용하여 컴포넌트를 정의할 수 있다.
+
+이전까지는 DOM 태그만을 사용해 React 엘리먼트를 나타냈다.
+React 엘리먼트에서는 사용자 정의 컴포넌트도 나타낼 수 있다.
