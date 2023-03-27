@@ -1,0 +1,71 @@
+############################
+Hook
+
+공식문서 링크 : https://ko.reactjs.org/docs/hooks-intro.html
+
+결정적으로, Hook은 존재하는 코드와 함께 나란히 작동함으로써 점진적으로 적용할 수 있습니다.
+hook은 결국 class없이 react 기능들을 사용하는 방법을 제시한다.
+
+### Effect Hook
+React 컴포넌트 안에서 데이터를 가져오거나 구독하고, DOM을 직접 조작하는 작업을 이전에도 종종 해보셨을 것입니다. 
+우리는 이런 모든 동작을 “side effects”(또는 짧게 “effects”)라고 합니다. 
+왜냐하면 이것은 다른 컴포넌트에 영향을 줄 수도 있고, 렌더링 과정에서는 구현할 수 없는 작업이기 때문입니다.
+
+
+Effect Hook, 즉 useEffect는 함수 컴포넌트 내에서 이런 side effects를 수행할 수 있게 해줍니다. 
+React class의 componentDidMount 나 componentDidUpdate, componentWillUnmount와 같은 목적으로 제공되지만, 하나의 API로 통합된 것입니다. 
+(useEffect와 이 세 가지 메서드를 비교하는 예시가 Using the Effect Hook 문서에 있습니다.)
+
+useEffect 함수 사용 구조
+
+useEffect(() => {
+
+}, []) 
+
+return  (
+    <div>App</div>
+)
+
+빈 배열을 넣으면 componentDidMount 처럼 동작한다.
+
+useEffect(() => {
+
+}) 
+
+return  (
+    <div>App</div>
+)
+
+componentDidMount + componentDidUpdate 처럼 동작한다.
+
+export default function App(props) {
+    const [state, setstate] = useState(initialState)
+
+    useEffect(() => {
+
+    }, [state, props.a])  -> 이 배열을 의존성 배열이라 한다.
+
+    return (
+        <div>App</div>
+    )
+}
+
+이렇게 하면 componentDidMount + 특정 값이 변경 되었을 때에만 해당하는 componentDidUpdate 처럼 동작한다.
+
+import React, {useState, useEffect} from "React"
+
+export default function App(props) {
+    const [state, setstate] = useState(initialState)
+
+    useEffect(() => {
+        return() => {
+            cleanup
+        }
+    }, [state, props.a])  -> 이 배열을 의존성 배열이라 한다.
+
+    return (
+        <div>App</div>
+    )
+}
+
+이렇게 하면 componentWillUnmount
