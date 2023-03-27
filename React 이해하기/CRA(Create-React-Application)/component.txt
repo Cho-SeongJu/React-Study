@@ -20,3 +20,66 @@ App.js에서 import하여 <Header /> 이렇게 하면 된다.
 
 이전까지는 DOM 태그만을 사용해 React 엘리먼트를 나타냈다.
 React 엘리먼트에서는 사용자 정의 컴포넌트도 나타낼 수 있다.
+
+##props
+각 페이지마다, Header안에 들어있는 텍스트를 다르게 보여주고 싶다면?
+
+가장 간단한 방법은 component 함수를 여러개 만들면 된다.
+
+또는 점표기법을 사용할 수 있다.
+객체를 만들고 key와 value에 A함수, B함수, C함수 이렇게 하고
+
+App.js에서 Header.A 이렇게 해서 사용할 수 있다.
+
+이렇게 하면 너무 번거롭고 비효율적이다. 왜냐면 이 헤더부분에 많은 부분이 변경되는게 아니라
+안에 텍스트 한줄만 바뀌는 거라서 비효율적이다
+
+따라서 props를 활용하명 사용자 정의 컴포넌트에 추가적인 값을 전달할 수 있다.
+
+<Header title={"Learn React A"} />
+
+const Header = (props) => {
+    {props.title}
+}
+
+이렇게 props로 쉽게 각 페이지마다 텍스트를 다르게 할 수 있다.
+재사용성이 기하급수적으로 늘어났다.
+
+props : object 
+props는 읽기 전용이다. 수정을 해서는 절대 안된다.
+
+모든 React 컴포넌트는 자신의 props를 다룰 때 반드시 순수 함수처럼 동작해야 한다.
+
+## props.children
+공식문서 : https://ko.reactjs.org/docs/glossary.html#propschildren
+
+모든 컴포넌트에서 props.children를 사용할 수 있다.
+
+<Header title={"Learn React A"} /> - props.title
+<Header>Hello world!</Header> - props.children
+
+props.children 활용
+1. 사용자 정의 컴포넌트가 일반적인 html 태그와 구조와 비슷할 때
+
+<button onClick= {() => alert("submit")}>제출하기</button>
+<button onClick= {() => alert("delete")}>삭제하기</button>
+<button onClick= {() => alert("add")}>추가하기</button>
+
+클릭함수를 handleClick으로 받았다고 가정하고
+
+export default function Button(props){
+    return <button onClick={props.handleClick}>{props.children}</button>
+}
+
+2. 컴포넌트에 다른 컴포넌트를 전달해야할 때
+<Welcome>
+    <또 다른 사용자 정의 컴포넌트 />
+</Welcome>
+
+## props를 더 잘 다루기
+
+props에 넘길때 아무값도 안넘기면 default값은 react에서는 true이다.
+
+근데 props에 key값이 너무 많으면 props.~ props.~ 이렇게 매번 쓰기 좀 번거롭다
+따라서 컴포넌트 함수에 인자값에 props가 아닌 {key명, key명} 이렇게 사용하면
+편리하게 깔끔하게 사용할 수 있다.
