@@ -30,3 +30,9 @@ setState를 한다고 해서 무조건 일어나지 않는다.
 참조타입 -> 불변성을 가지고 있지 않다.
 변수에 참조 타입의 값을 할당하면, 메모리 값이 담긴 주소가 저장된다.
 
+
+### 원시 타입(Referenc type) state 다루어보기 - boolean, number, string
+
++1 버튼 : 클릭하면 Counter 값을 1 증가
+show and hide 버튼 : 클릭하면 Counter를 나타나거나 사라지게 한다.
+change Operator : +, -, * 중 하나를 랜덤하게 선택하여 Counter 계산에 적용한다.
