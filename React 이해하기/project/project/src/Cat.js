@@ -5,7 +5,7 @@ const Cat = forwardRef((props, ref) => {
 
   useEffect(() => {
     console.log("useEffect in cat");
-    console.log(ref.current);
+    console.log(ref);
   }, []);
 
   return (
