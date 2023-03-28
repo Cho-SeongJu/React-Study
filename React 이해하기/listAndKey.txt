@@ -1,0 +1,55 @@
+#############################
+#List와 Key
+공식문서 : https://ko.reactjs.org/docs/lists-and-keys.html
+
+## 컴포넌트 반복하기
+Array.prototype.map을 활용하여 여러개의 컴포넌트를 렌더링
+
+return (
+    <>
+        {cardInfos.map((info) => {
+            <PreviewCard
+                imgSrc={info.imgSrc}
+            />
+
+        })}
+    <>
+)
+
+이렇게 또는
+
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((numbers) =>
+  <li>{numbers}</li>
+);
+
+이렇게 컴포넌트를 반복하여 렌더링 할 수 있다.
+
+
+근데 만약 list를 map으로 컴포넌트를 반복할려면
+각각의 element는 항상 유니크한 key값을 가져야 한다.
+
+const result = pickedCards.map((pickedCard) => <BusinessCard info={pickedCard} />);
+console.log(result)
+
+콘솔로그로 찍어보자
+그럼 key가 null로 출력이 된다.
+
+key가 필요한 이유는?
+리액트가 셋스테이트를 할때 비동기로 동작을 하고 연속적으로 setState를 호출했을 때 배치처리를 한다.
+그렇게 동작하는 이유는 리액트가 돔을 효율적으로 업데이트하기 위해서 였다.
+그리고 사실 리액트 입장에서는 컴포넌트를 반복적으로 랜더링하는 것도 피곤한 일이다.
+
+리액트는 컴포넌트가 리렌더링 될 때 마다 map을 다시 돌며, 이전에 엔더링 된 요소들과 비교
+-> 어떤 요소가 변경 되었는지 파악한다.
+
+Key는 React가 어떤 항목을 변경, 추가 또는 삭제할지 식별하는 것을 돕습니다.
+key는 엘리먼트에 안정적인 고유성을 부여하기 위해 배열 내부의 엘리먼트에 지정해야 합니다.
+
+Key를 선택하는 가장 좋은 방법은 고유하게 식별할 수 있는 문자열을 사용하는 것입니다.
+대부분의 경우 데이터의 ID를 key로 사용합니다.
+
+항목의 순서가 바뀔 수 있는 경우 key에 인덱스를 사용하는 것은 권장하지 않습니다.
+만약 인덱스를 key로 사용하면 배열이 재배열 됐을 때 컴포넌트의 state와 관련된 문제가 발생할 수 있다.
+
+Key는 배열 안에서 형제 사이에서 고유해야 하고 전체 범위에서 고유할 필요는 없습니다. 
