@@ -5,6 +5,7 @@ import TechPage from "./blog/components/TechPage";
 import BlogPage from "./blog/components/BlogPage";
 import JavaScriptPage from "./blog/components/JavaScriptPage";
 import ReactPage from "./blog/components/ReactPage";
+import ReactDocPage from "./blog/components/ReactDocPage";
 
 // root url : main page component
 // tech url : tech page component
@@ -18,6 +19,7 @@ export default function App() {
         <Route path={"/tech"} element={<TechPage />}>
           <Route path="javascript" element={<JavaScriptPage />} />
           <Route path="react" element={<ReactPage />} />
+          <Route path="react/:docId" element={<ReactDocPage />} />
         </Route>
         <Route path={"/blog"} element={<BlogPage />}></Route>
       </Routes>

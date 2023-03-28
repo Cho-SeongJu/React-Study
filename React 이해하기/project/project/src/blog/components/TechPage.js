@@ -6,7 +6,7 @@ export default function TechPage() {
     <>
       <div>
         <h1>TechPage</h1>
-        <Link to="/tect/react">React</Link> |<Link to="/tect/javascript">Javascript</Link>
+        <Link to="/tech/react">React</Link> |<Link to="/tech/javascript">Javascript</Link>
       </div>
       <Outlet />
     </>
