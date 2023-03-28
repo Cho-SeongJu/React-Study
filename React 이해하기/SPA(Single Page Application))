@@ -31,12 +31,14 @@ react-router-dom 설치
 yarn add react-router-dom@6 -> 버전 6
 window에서는 yarn말고 npm
 
-BrowserRouter
+BrowserRouter(
 : 웹 브라우저에서 리액트 라우터를 실행시키기 위해 필요한 인터페이스이다.
 브라우저 주소바에 있는 현재 위치를 저장한다.
 history stack을 사용하여 navigate 기능을 가능하게 해준다.
 
 history.api를 사용하여 그 url과 리액트 앱을 연결해주는 역할을 한다.
+
+최상위에 위치
 
 Routes
 
