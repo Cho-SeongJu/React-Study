@@ -124,3 +124,7 @@ state 끌어올리기 실습
 https://github.com/zerobase-school/2022-frontend-school-react/tree/master/4/4-2/4-2-4
 
 
+
+ props는 부모가 자식에게 데이터를 넘겨줄 때 사용할 수 있는 방법입니다. 
+ 정적 버전을 만들기 위해 state를 사용하지 마세요. 
+ state는 오직 상호작용을 위해, 즉 시간이 지남에 따라 데이터가 바뀌는 것에 사용합니다. 

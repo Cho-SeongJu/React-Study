@@ -1,20 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import Cat from "./Cat";
-// import CatParent from "./CatParent";
 import "./index.css";
-// import App from './App';
-// import Banner from "./banner/Banner";
-// import Toggle from "./toggle";
+import App from "./App.js";
 import reportWebVitals from "./reportWebVitals";
-import ToDoList from "./todoList";
-// import SimpleForm from "./SimpleForm";
-// import UnControlledForm from "./UnControlledForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ToDoList />
+    <App />
   </React.StrictMode>
 );
 
