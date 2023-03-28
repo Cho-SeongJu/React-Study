@@ -1,12 +1,16 @@
 import React from "react";
 
 export default function ProductsTable(props) {
+  const { category, items, inStockOnly } = props;
+
+  const flteredItems = inStockOnly ? items.filter((item) => item.stocked) : items;
+
   return (
     <>
       <tr>
-        <td>{props.category}</td>
+        <td>{category}</td>
       </tr>
-      {props.items.map((item, idx) => (
+      {flteredItems.map((item, idx) => (
         <tr key={idx}>
           <td>{item.name}</td>
           <td>{item.price}</td>

@@ -2,9 +2,13 @@ import React from "react";
 import ProductsTable from "./ProductsTable";
 
 export default function StoreTable(props) {
-  const { products } = props;
+  const { products, filter } = props;
 
-  const result = products.reduce((acc, cur) => {
+  //products에서 filter.text가 있으면! -> 그 친구만 렌더링을 해야함
+  const targetProduct = products.filter((p) => p.name === filter.text);
+  const filteredProducts = targetProduct.length > 0 ? targetProduct : products;
+
+  const result = filteredProducts.reduce((acc, cur) => {
     if (acc.hasOwnProperty(cur.category)) {
       // 키를 가지고 있는 케이스
       return {
@@ -31,7 +35,7 @@ export default function StoreTable(props) {
       </thead>
       <tbody>
         {keys.map((key, idx) => (
-          <ProductsTable category={key} items={result[key]} key={idx} />
+          <ProductsTable category={key} items={result[key]} key={idx} inStockOnly={filter.inStockOnly} />
         ))}
       </tbody>
     </table>
