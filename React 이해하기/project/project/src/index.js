@@ -1,16 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Cat from "./Cat";
+import CatParent from "./CatParent";
 import "./index.css";
 // import App from './App';
 // import Banner from "./banner/Banner";
 // import Toggle from "./toggle";
 import reportWebVitals from "./reportWebVitals";
-import SimpleForm from "./SimpleForm";
+// import SimpleForm from "./SimpleForm";
+// import UnControlledForm from "./UnControlledForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <SimpleForm />
+    <CatParent />
   </React.StrictMode>
 );
 
