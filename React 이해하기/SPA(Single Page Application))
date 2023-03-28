@@ -1,0 +1,44 @@
+공식 문서 링크 : https://ko.reactjs.org/docs/glossary.html
+
+SPA
+싱글 페이지 애플리케이션(Single-page application, SPA)은 하나의 HTML 페이지와 애플리케이션 실행에 필요한 JavaScript와 CSS 같은 모든 자산을 로드하는 애플리케이션입니다. 페이지 또는 후속 페이지의 상호작용은 서버로부터 새로운 페이지를 불러오지 않으므로 페이지가 다시 로드되지 않습니다.
+
+전통적인 방식의 웹 애플리케이션은 어떤 단점을 가지고 있을까?
+
+서버의 부담이 크다
+속도가 느려질 수 있다
+페이지 이동 시, 깜빡임이 발생한다.
+
+=> url을 이동하더라도 새로운 HTML을 서버에서 받지 말고 화면을 Client에서 그리자!(Client Side Rendering)
+
+React는 Client Side Rendering 방식으로 동작하고, SPA를 만들 수 있도록 지원하는 라이브러리이다.
+
+SPA로 웹 애플리케이션을 구축할 때 HTML은 하나지만, 유저가 볼 수 있는 화면은 여러개여야 한다.
+
+라우팅 : URL에 따라 알맞은 콘텐츠(UI)를 전달해주는 기능
+
+History API
+https://developer.mozilla.org/ko/docs/Web/API/History_API
+
+서버로 요청을 보내지 않고 페이지를 바꿀 수 있다. 현재가 어떤 페이지에 속해있는지 정보도 알 수 있다.
+
+react-router
+공식문서 : https://github.com/remix-run/react-router#readme
+
+클라이언트에서 HTML을 받지 않아도 DOM을 생성해서 출력한다.
+
+react-router-dom 설치
+yarn add react-router-dom@6 -> 버전 6
+window에서는 yarn말고 npm
+
+BrowserRouter
+: 웹 브라우저에서 리액트 라우터를 실행시키기 위해 필요한 인터페이스이다.
+브라우저 주소바에 있는 현재 위치를 저장한다.
+history stack을 사용하여 navigate 기능을 가능하게 해준다.
+
+history.api를 사용하여 그 url과 리액트 앱을 연결해주는 역할을 한다.
+
+Routes
+
+Route
+path url element component
