@@ -44,3 +44,9 @@ Routes
 
 Route
 path url element component
+
+outlet
+: 부모 라우터는 랜더를 한다 outlet을 랜더링을 하면서 child route들을 랜더링한다
+outlet은 사용된다 부모의 route element에서 child element route를 랜더링하기 위해서 사용한다.
+
+허용한다 중첩된 UI(부모 route)가 나타나도록 child route들이 랜더되었을 떄도 중첩된 UI가 나타나도록 한다.
