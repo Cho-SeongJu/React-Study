@@ -20,6 +20,8 @@ export default function App() {
           <Route path="javascript" element={<JavaScriptPage />} />
           <Route path="react" element={<ReactPage />} />
           <Route path="react/:docId" element={<ReactDocPage />} />
+          {/* <Route index path="react" element={<ReactPage />} /> */}
+          {/* 둘 다 아니면 index에 해당한 경로로 이동. default값으로 생각하면 된다. */}
         </Route>
         <Route path={"/blog"} element={<BlogPage />}></Route>
       </Routes>
