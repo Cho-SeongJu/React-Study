@@ -36,3 +36,51 @@ React는 특정 숫자 인라인 스타일 프로퍼티는 “px” 접미사를
 
 *style 어트리뷰트를 스타일링의 주요 수단으로 사용하는 것은 일반적으로 권장되지 않습니다.*
 
+
+className prop에 문자열을 넘깁니다.
+
+render() {
+  return <span className="menu navigation-menu">Menu</span>
+}
+
+컴포넌트의 props나 state에 CSS 클래스가 의존하는 것은 자주 사용되는 방식입니다.
+
+render() {
+  let className = 'menu';
+  if (this.props.isActive) {
+    className += ' menu-active';
+  }
+  return <span className={className}>Menu</span>
+}
+
+이러한 방식으로 코드를 자주 작성한다면, classnames 패키지를 통해 이 작업을 간소화할 수 있습니다.
+
+css Modules
+
+
+
+css-in-js 
+“CSS-in-JS”는 외부의 파일에 CSS를 정의하는 대신에 JavaScript와 결합하는 패턴을 의미합니다.
+스타일 코드를 css나 sass파일로 정의하는게 아니라 JS파일로 작성을 한다. 그리고 그 JS로 작성된 파일을 우리의 컴포넌트에 자바스크립트 파일과 결합을 하는 방식이다.
+
+이러한 기능은 React에 포함된 기능이 아닌, 별도의 라이브러리로 제공되고 있는 것에 주의하자
+
+
+styled-components 라이브러리
+
+npm install --save styled-components
+
+import styled from "styled-components"
+
+exportconst 변수명 = styled.td`
+  font-weight : bold
+`
+import * as S from "./ProductsTable.style";
+ 
+<S.Category></S.Category>
+
+이렇게 파일을 따로 만들어서 사용해도 되고 
+파일 하나에서 작업해도 된다.
+
+css-in-js에서 각 컴포넌트를 해싱을 해서 동적인 클래스 네임을 만들어준다.
+
