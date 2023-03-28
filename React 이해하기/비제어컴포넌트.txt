@@ -1,0 +1,93 @@
+대부분 경우에 폼을 구현하는데 제어 컴포넌트를 사용하는 것이 좋습니다. 
+제어 컴포넌트에서 폼 데이터는 React 컴포넌트에서 다루어집니다. 
+대안인 비제어 컴포넌트는 DOM 자체에서 폼 데이터가 다루어집니다.
+
+DOM에서 폼값을 가지고 올 수 있어야 한다 이를 위해 ref방법을 제공한다.
+
+ref DOM에 직접 접근할 수 있는 것
+
+클래스 컴포넌트일 때, ref를 사용하는 방법
+import { createRef } from "react"
+
+함수 컴포넌트 일 때, ref를 사용하는 방법
+import { useRef } from "react"
+
+
+useRef를 통해서 어떤 객체를 만들 수 있는데 그 객체에는 current라는 key가 자동으로 들어가있다.
+태그에 ref를 넣으면 이 current가 가르키는 값에 태그가 들어간다.
+
+state로 만들어서 value에 연결을 필요해줄 필요가 없이 dom에 있는 값을 가지고 올 수 있다.
+
+
+### ref
+공식문서 링크 : https://ko.reactjs.org/docs/refs-and-the-dom.html
+
+Ref를 사용해야 할 때
+
+포커스, 텍스트 선택영역, 혹은 미디어의 재생을 관리할 때.
+애니메이션을 직접적으로 실행시킬 때.
+서드 파티 DOM 라이브러리를 React와 같이 사용할 때.
+
+Ref는 createRef()를 통해 생성되거나 useRef로 생성 
+ref 어트리뷰트를 통해 React엘리먼트에 부착된다.
+
+
+## Ref 생성 방법
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+  render() {
+    return <div ref={this.myRef} />;
+  }
+}
+
+
+## 클래스 컴포넌트에서 ref 사용하기
+class AutoFocusTextInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+  }
+
+  componentDidMount() {
+    this.textInput.current.focusTextInput();
+  }
+
+  render() {
+    return (
+      <CustomTextInput ref={this.textInput} />
+    );
+  }
+}
+
+
+## 함수컴포넌트에서 Ref 사용
+함수 컴포넌트는 인스턴스가 없기 때문에 함수 컴포넌트에 ref 어트리뷰트를 사용할 수 없습니다.
+
+function MyFunctionComponent() {
+  return <input />;
+}
+
+class Parent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+  }
+  render() {
+    // 이 코드는 동작하지 않습니다.
+    return (
+      <MyFunctionComponent ref={this.textInput} />
+    );
+  }
+}
+
+함수 컴포넌트에 ref 사용할 수 있도록 하려면 fowardRef를 사용하거나 클래스 컴포넌트로 변경할 수 있다.
+
+## fowardRef
+
+부모 컴포넌트에게 DOM ref를 공개하기
+보기 드문 경우지만, 부모 컴포넌트에서 자식 컴포넌트의 DOM 노드에 접근하려 하는 경우도 있습니다. 
+자식 컴포넌트의 DOM 노드에 접근하는 것은 컴포넌트의 캡슐화를 파괴하기 때문에 권장되지 않습니다. 
+그렇지만 가끔가다 자식 컴포넌트의 DOM 노드를 포커스하는 일이나, 크기 또는 위치를 계산하는 일 등을 할 때에는 효과적인 방법이 될 수 있습니다.
