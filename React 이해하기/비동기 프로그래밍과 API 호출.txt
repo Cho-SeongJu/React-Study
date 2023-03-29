@@ -1,0 +1,139 @@
+비동기 프로그래밍과 Promise
+
+이 코드의 실행이 완료될 때 까지 기다리지 않고, 다음 코드를 실행시킨다.
+그리고 이 코드의 실행이 완료되면, 특정 코드를 실행 시킨다.
+
+new Promise((resolve, reject) => {
+    // 비동기 방식으로 실행시킬 코드
+})
+
+####################################################################
+
+async와 await
+
+ES6에 추가 되었다.
+기본적으로 비동기 코드를 쓰고 Promise를 더 읽기 더 쉽도록 만들어준다.
+
+async function hello() {
+
+};
+
+const asd = async () => {
+    
+}
+
+async를 함수와 같이 사용하면 결과를 직접 반환하는게 아니라 Promise 객체를 반환하게 한다.
+
+await
+
+어떠한 promise기반 함수 앞에 놓을 수 있다. 우리의 코드의 Promis가 fulfil될 때 까지 잠시
+중단하고, 결과를 반환한다. 그리고 실행을 기다리는 다른 코드들을 중지시키지 않고 그래도 실행되게 한다.
+
+await 키워드는 JavaScript 런타임이 이 라인에서 비동기 코드를 일시중기하여 비동기 함수 호출이 결과를 반환할 때 까지 기다리게 한다.
+그러나 외부의 다른 동기 코드는 실행될 수 있도록 한다.
+
+async function hell() {
+    // 얘가 실행될 때까지 다음으로 내ㅑ려가지 않는다.
+    return greeting = awiat Promise.resolve("Hello");
+}
+
+############################################################################################################
+컴포넌트에서 API 호출하기 (fetch API, axios)
+
+Fetch API는 web api 브라우저에 내장되어 있는 라이브러리이다. 
+
+JSON Placeholder 프론트엔드 개발을 할때 사용하는 API
+
+
+Axios
+Axios는 node.js와 브라우저를 위한 Promise 기반 HTTP 클라이언트이다.
+
+특징
+요청 및 응답 인터셉트
+JSON 데이터를 자동으로 변환해준다.
+fetch는 timout처리가 안되는데 axios는 된다.
+
+
+#######################################################################################################################################
+
+useEffect 내에서 API 호출 시, 주의할 점
+
+useEffect에서 async await를 사용할 때
+
+
+useEffect callback 함수는 항상 아무것도 반환하지 않거나 return 함수만 반환해야하는데 return할 때 async함수에 return이 promise여서
+warning이 뜬다
+
+즉, useEffect에 반환은 Promise객체면 안된다.
+
+
+#######################################################################################################################################
+Custom Hook
+
+Hook 함수 useState, useEffect
+
+자신만의 Hook 만들기
+공식문서 링크 : https://ko.reactjs.org/docs/hooks-custom.html
+
+자신만의 Hook을 만들면 컴포넌트 로직을 함수로 빱아내어 재사용할 수 있다.
+
+이름은 반드시 use로 시작해야한다. Hook 규칙이 적용되는지를 파악할 수 있기 떄문이다.
+
+각각의 다른 컴포넌트에서 동일한 custom Hook을 사용한다해도 state를 공유하지 않는다. 독립적이다.
+
+######################################################################################################################################
+
+useFetch
+
+대부분에 useFetch customhook useeffect 안에서 url이 변경되었을 때만 동작하게 되어있는데
+규모가 큰 프로젝트를 하다 보면 생각보다 component가 mount가 됐을 때 데이터를 가져올떄도 있다.
+유저에 액션에 따라 비동기 호출을 할때가 더 많았다. 입력을 하거나 버튼을 눌렀을때 호출하는 API라던지
+기본적인 API호출 코드는 useEffect 보다는 일반 함수에 넣고 만약에 내가 컴포넌트가 mount가 된 직후에
+API호출하고 싶다 그러면 그때 useEffect를 사용했다.
+
+######################################################################################################################################
+swr과 React-Query
+
+swr 공식문서 링크 : https://swr.vercel.app/docs/getting-started
+
+import useSWR from 'swr'
+ 
+function Profile () {
+  const { data, error, isLoading } = useSWR('/api/user/123', fetcher)
+ 
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <div>loading...</div>
+ 
+  // render data
+  return <div>hello {data.name}!</div>
+}
+
+useEffect안에서 useSWR 사용 불가
+useSWR는 랜더링이 되면 무조건 코드 수행을 하는게 아니라.
+useSWR 기본적인 컨셉은 유니크한 키값을 가지는데 한번만 데이터를 패칭을 하고 캐싱을 한다.
+리랜더링이 되면 이전에 가지고 온 데이터를 사용한다.
+
+data와 error를 가지고 랜더링 처리를 한다.
+
+
+function useUser (id) {                            key          fetcher     option
+  const { data, error, isLoading } = useSWR(`/api/user/${id}`, fetcher)
+ 
+  return {
+    user: data,
+    isLoading,
+    isError: error
+  }
+}
+
+function Avatar ({ id }) {
+  const { user, isLoading, isError } = useUser(id)
+ 
+  if (isLoading) return <Spinner />
+  if (isError) return <Error />
+  return <img src={user.avatar} />
+}
+
+react query
+전역상태를 건들지 않는다.
+
