@@ -1,0 +1,96 @@
+####################################################################################################################################
+Context API
+
+웹 어플리케이션을 다루면서 언제 전역 상태를 관리할까?
+
+로그인한 유저 정보, Theme style
+
+앱 전체에서 가지고 있어야지 필요할때마다 유저 정보를 뽑아서 사용 접근 가능한 상태여야 한다.
+Theme style도 마찬가지 예시) 다크모드, 라이트 모드
+
+앱에서는 어쩔때는 다크고 어떤건 라이트 모드고 이렇게 돌아가지 않고 전체적으로 다크모드면 전체 다크모드 이런식으로 진행을 한다.
+
+이 밖에도 웹 어플리케이션을 개발 하다 보면 전역 상태로 관리해야 하는 값들이 꽤 많이 생긴다.
+
+A B C D 
+Context를 생성하여 A컴포넌트에 연결
+
+
+createContext(defaultValue);
+: default 매개변수는 트리 안에서 적절한 Provider를 찾지 못했을 때만 쓰이는 값이다.
+
+
+provider
+: value prop을 받아서 이 값을 하위에 있는 컴포넌트에게 전달한다. 값을 전달받을 수 있는 컴포넌트의 수에 제한은 없다. 
+Provider 하위에 또 다른 provider를 배치하는 것도 가능하며 이 경우 하위 provider의 값이 우선시 된다.
+
+provider 하위에서 context를 구독하는 모든 컴포넌트는 Provider의 value prop가 바뀔 때 마다 다시 렌더링 된다.
+
+
+----- 컨텍스트 생성 --------------------
+import React, { createContext, useState } from "react";
+//create Context : context를 생성하게 해주는 함수
+
+export const UserContext = createContext();
+
+export default function UserStore(props) {
+  const [job, setJob] = useState("FE-developer");
+
+  const user = {
+    name: "hwarari",
+    job,
+    changeJob: (updatedJob) => setJob(updatedJob),
+  };
+
+  // 하위 컴포넌트에게도 제공한다.
+  // value에 담긴 데이터만 넘긴다.
+  return <UserContext.Provider value={user}>{props.children}</UserContext.Provider>;
+}
+
+그 후 최상단 컴포넌트에 import UserStore from "./blog/components/store/user"; 를 추가하여 
+UserStore로 컴포넌트들을 최상위로 감싸준다.
+그리고 그 하위 컴포넌트에서 전역 객체를 사용하기 위해서는 
+
+import React, { useContext } from "react";
+import { UserContext } from "./store/user";
+
+const value = useContext(UserContext);
+
+이 방법이 Context를 사용하는 방법이다.
+
+####################################################################################################################################
+useReducer
+공식 문서 링크 : https://ko.reactjs.org/docs/hooks-reference.html#usereducer
+
+useReducer는 useState의 대체 함수입니다. (state, action) => newState의 형태로 reducer를 받고 dispatch 메서드와 짝의 형태로 현재 state를 반환합니다.
+
+예제
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+
+다수의 하윗값을 포함하는 복잡한 정적 로직을 만드는 경우나 다음 state가 이전 state에 의존적인 경우에 보통 useState보다 useReducer를 선호합니다.
+
+setState가 복잡하다 하면 useReducer를 사용한다.
+
+또한 useReducer는 자세한 업데이트를 트리거 하는 컴포넌트의 성능을 최적화할 수 있게 하는데, 이것은 콜백 대신 dispatch를 전달 할 수 있기 때문입니다.
