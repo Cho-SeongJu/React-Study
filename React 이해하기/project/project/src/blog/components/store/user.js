@@ -20,6 +20,7 @@ const userReducer = (state, action) => {
 
 export default function UserStore(props) {
   // const [job, setJob] = useState("FE-developer");
+  // dispatch 액센 객체
   const [user, dispatch] = useReducer(userReducer, initialUser);
   console.log(user);
   // const user = {
@@ -30,5 +31,5 @@ export default function UserStore(props) {
 
   // 하위 컴포넌트에게도 제공한다.
   // value에 담긴 데이터만 넘긴다.
-  return <UserContext.Provider value={dispatch}>{props.children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, dispatch }}>{props.children}</UserContext.Provider>;
 }
