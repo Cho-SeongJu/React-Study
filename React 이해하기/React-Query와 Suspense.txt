@@ -1,0 +1,13 @@
+비동기 통신과 전역 상태 관리의 최신 흐름
+
+API 호출하기 전역 상태 관리하기 API 호출하고 전역 상태에 update 하기
+
+프로젝트의 크기가 커질수록 API 호출 후 전역 상태를 업데이트 해줘야 하는 상황마다
+작성해야 하는 코드가 많다. store의 크기도 비대해진다.
+
+전역 상태를 관리 
+API 호출 후 응답 데이터 -> Server State
+UI 개발을 위한 데이터 ex) theme -> Client State
+
+React-Query
+공식문서 링크 : https://react-query.tanstack.com/overview

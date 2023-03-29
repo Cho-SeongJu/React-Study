@@ -139,3 +139,31 @@ redux-observable
 - 가장 진입 장벽이 높다.
 
 yarn add redux react-redux redux-thunk
+
+
+#######################
+상태관리 도구들
+
+Recoil
+- 리액트팀에서 직접 만든 상태관리 라이브러리
+- 비동기 데이터 통신을 위한 기능 제공
+- React 내부에 접근이 가능하여 동시성 모드, Suspense 등을 손쉽게 지원 가능
+
+Jotai
+- Recoil에 영향을 받아 일본에서 만들어진 라이브러리
+
+constate
+- React Context API + State
+- Context의 단점을 개선
+
+Recoil
+https://recoiljs.org/ko/
+
+Recoil을 사용하면 atoms (공유 상태)에서 selectors (순수 함수)를 거쳐 React 컴포넌트로 내려가는 data-flow graph를 만들 수 있다. Atoms는 컴포넌트가 구독할 수 있는 상태의 단위다.
+ Selectors는 atoms 상태값을 동기 또는 비동기 방식을 통해 변환한다.
+
+Atom
+ Atoms는 상태의 단위이며, 업데이트와 구독이 가능하다. 
+ atom이 업데이트되면 각각의 구독된 컴포넌트는 새로운 값을 반영하여 다시 렌더링 된다.
+ atoms는 런타임에서 생성될 수도 있다. 
+ Atoms는 React의 로컬 컴포넌트의 상태 대신 사용할 수 있다. 동일한 atom이 여러 컴포넌트에서 사용되는 경우 모든 컴포넌트는 상태를 공유한다.
