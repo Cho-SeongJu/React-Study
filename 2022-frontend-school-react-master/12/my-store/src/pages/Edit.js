@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { useQuery, useQueries, useMutation, useQueryClient } from "react-query";
 import { getUser, getPosts, updateNickname } from "../mocks/api";
+
+const Post = lazy(() => import("./Post"));
+
+import("./math").then((math) => {
+  console.log(math.add(16, 26));
+});
 
 // API를 통해 현재 닉네임값 가져오기
 // handleSubmit : 업데이트된 inputValue를 서버에 전송해서, 닉네임값 없데이트 하기
@@ -71,7 +77,7 @@ export default function Edit() {
       </form>
       <ul>
         {posts?.map((post) => (
-          <li>{post.title}</li>
+          <Post title={post.title} />
         ))}
       </ul>
     </>
