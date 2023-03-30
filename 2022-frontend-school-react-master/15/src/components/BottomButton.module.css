@@ -1,0 +1,11 @@
+.button {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px;
+  border-radius: 10px;
+  margin: 0 auto;
+  background: black;
+  color: white;
+}
