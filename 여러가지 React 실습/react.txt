@@ -87,3 +87,88 @@ Loader : CSS,Sass,Image 리소스등을 처리하기 위한 각종 로더
 
 실무에서는 CRA없이 개발환경을 구축해야한다.
 
+npx create-react-app my-app
+
+package.json 
+프로젝트의 명세서, 프로젝트 실행 방법, 설치된 라이브러리들, 작성자, 프로젝트의 이름, 버전 명시
+
+package-lock.json
+package.json에 명시되어 있는 라이브러리들의 설치된 라이브러리 버전을 명시 
+npm install 시 생성이 된다
+
+
+이름, 버전, 프로젝트 외부 공개 여부
+"name": "my-app",
+"version": "0.1.0",
+"private": true,
+
+현재 프로젝트의 의존성 명시
+"dependencies": {
+}
+
+프로젝트에서 사용되는 명령어
+"scripts": {
+}
+
+npm run "명령어" 형태로 사용
+ex) npm run start
+
+src = source의 약자
+프로젝트에서 사용되는 소스코드를 작성하는 폴더
+
+index.js라는 이름의 파일은 해당 폴더의 기본 시작점 파일
+
+node_modules
+이전에 확인했던 package.json에 명시되어 있는 라이브러리들이 저장되어 있음
+
+node_moduiles는 메모리를 아끼기 위해, 설치 시 중복되는 의존성을 최상위로 끌어올린다.
+
+
+JSX 문법
+
+const element = <h1>Hello, world!</h1>
+위에 희한한 태그 문법은 문자열도, HTML도 아니다.
+
+JSX라 하며 JavaScript를 확장한 문법이다.
+
+
+Transpiler: Babel
+트랜스파일 Transpile:
+어떠한 언어로 작성된 코드를 같은 수준의 다른 코드로 변환하는 작업
+JSX => javascript, typescript => javascript
+
+같은 수준:
+스크립트 언어 => 스크립트 언어
+둘 다 개발자가 작성한 소스코드로, 사람이 읽고 이해할수 있는 수준의 언어 레벨
+
+컴파일 Compile
+개발자가 작성한 고급 언어를 기계가 이해할 수 있는 기계어로 변환하는 과정
+
+
+JSX 사용 이유?
+JSX의 코드가 깔끔하고 직관적으로 읽기 편하다.
+
+JSX 문법 
+1 .최상위 단일 요소는 반드시 단일 태그여야 한다
+여러 요소들을 반환 시, 한번 더 감싸서 반환해야한다.
+불필요하게 태그를 작성하게 되는 문제 발생한다.
+
+2. Fragment === <></>
+DOM에 별도의 노드를 추가하지 않고 그룹화
+
+3. 중괄호를 이용하여 자바스크립트 표현식 사용 가능하다.
+{ 자바스크립트 표현식}
+
+4.자바스크립트 표현식, 논리 연산자 사용 가능하다
+{isKorean && "asd"}
+
+5. 자바스크립트 표현식, 삼항 연산자도 사용 가능하다.
+Good{time >= 12 ? "asd" : "asd"}
+
+6. 자바스크립트 표현식 내부에서 함수 호출 가능하다
+
+7. JSX는 HTML보다는 JavaScript에 가깝기 떄문에, React DOM은 HTML 어트리뷰트 이름 대신 camelCase 프로퍼티 명명 규칙을 사용하게 된다.
+ex) class -> className
+
+8. JSX 문법 - 인라인 스타일
+<mark style={{backgroundColor : "black"}}>
