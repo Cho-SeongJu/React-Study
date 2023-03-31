@@ -124,6 +124,7 @@ node_modules
 node_moduiles는 메모리를 아끼기 위해, 설치 시 중복되는 의존성을 최상위로 끌어올린다.
 
 
+## JSX
 JSX 문법
 
 const element = <h1>Hello, world!</h1>
@@ -172,3 +173,25 @@ ex) class -> className
 
 8. JSX 문법 - 인라인 스타일
 <mark style={{backgroundColor : "black"}}>
+
+## 함수 컴포넌트
+함수 컴포넌트는 Props라는 객체 인자를 넘겨 받을 수 있다.
+ex) input 태그의 type, value, onChange, disabled가 담긴 객체가 Props
+
+
+<button onClick={handleSubmit}>맞춰보기</button>
+handleSubmit : props
+맞춰보기 : children
+
+props : {
+    onClick : handleSubmit,
+    children : "맞춰보기"
+}
+
+컴포넌트를 반환되는 js파일은 파일 첫 문자가 대문자여야 한다.
+
+React에서는 소문자로 시작한 태그는 시작하는 거는 DOM으로 처리한다.
+
+
+## 클래스 컴포넌트
+자주 쓰이지 않는 컴포넌트이다.
