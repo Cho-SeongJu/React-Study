@@ -1,0 +1,42 @@
+type에 대한 문법이 있는 javascript이다.
+
+1. editor checks
+코드 에디터에서 프로그램을 실행하기 이전에 타입 안정성 검증이 가능하다.
+
+const user = {
+    firstName : "Angela",
+    lastName : "Davis",
+    role: "Professor",
+}
+
+console.log(user.name)
+
+만약 js에서 할 경우 name이라는 property가 없기 때문에 undefined가 출력이 되는데
+typescript에서는 오류를 출력한다.
+
+타입스크립트는 이렇게 어떤값이 존재하는지 개발자가 항시 인지하고 있지 않아도 타입스크립트에서 코드의 안정성을 검증해줌으로써
+개발자가 개발을 하면서 실수를 하는 부분을 줄여준다.
+
+2. AutoComplete
+코드에디터에서 코드를 작성할 때, 입력하는 내용과 연관되는 키워드를 추천받을 수 있다.
+
+res라는 객체에 어떠한 property가 존재하는지 타입이 정의되어 있으므로 코드를 실행해보기 전에 알 수 있다.
+
+
+3. Interface, Type
+코드의 명세서 역할
+일부의 코드만 보아도 어떠한 값이 함수로 엄어오게 되는지 유추가 가능.
+코드의 가독성 증가
+
+4. JSX with Type
+interface UserThumbnailProps {
+    img : string;
+    alt : string;
+    url : string;
+}
+
+어떠한 값이 어떤 타입으로 주입되는지 선언해준다.
+
+타입스크립트는 브라우저가 읽지 못한다
+그래서 타입스크립트를 트랜스파일링하여 JS로 변환하고 그 다음 브라우저가 읽게 하면 된다.
+
