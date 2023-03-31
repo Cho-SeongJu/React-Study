@@ -195,3 +195,44 @@ React에서는 소문자로 시작한 태그는 시작하는 거는 DOM으로 �
 
 ## 클래스 컴포넌트
 자주 쓰이지 않는 컴포넌트이다.
+
+
+
+## useReducer
+useState의 대체 함수이다.
+다수의 하윗값을 포함하는 복잡한 정적 로직을 만드는 경우나 다음 state가 이전 state에 의존적인 경우에 보통 useState보다 useReducer를 선호한다.
+
+이전 상태를 새로운 상태로 변경할 때 사용되는 함수
+
+state와 action을 받는다.
+action은 dispatch함수가 넘여군 객체를 받게 된다.
+
+const initialState = {count:0};
+
+function reducre(state, action) {
+    switch (action.type){
+        case "increment":
+            return {count: state.count + 1};
+        case "decrement":
+            return {count : state.count - 1};
+        default:
+            throw new Error();
+    }
+}
+
+function Counter() {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    return (
+        <>
+            Count: {state.count}
+            <button onClick={() => dispatch({type: "decrement"})}>-</button>
+            <button onClick={() => dispatch({type: "increment"})}>+</button>
+        </>
+    )
+}
+
+함수 컴포넌트 외부로 로직을 분리
+-> 재사용 가능하고, 유연한 구조를 가진다.
+
+action에 따라 상태를 업데이트하므로 코드에 의도를 담을 수 있음
+-> 가독성 증가.
