@@ -1,0 +1,18 @@
+export function generateRandomNumber() {
+  // 1 ~ 9까지 숫자를 이용
+  const candidates = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  // 랜덤하게 섞어서 4자리 숫자만 이용할 예정
+  const pickNumbers = shuffle(candidates).splice(0, 4); // 4자리를 뽑음
+  return pickNumbers;
+}
+
+function shuffle(array) {
+  // Math.random(), 0 ~ 1까지 랜덤하게 뽑는다.
+  // array.sort()
+
+  // array.sort((a, b) => a - b) 음수를 반환하면 내림차순 정렬을 하고, 양수를 반환하면 오름차순으로 정렬
+  return array.sort(() => {
+    return Math.random() - 0.5; // -0.5 ~ 0.5
+  });
+}
