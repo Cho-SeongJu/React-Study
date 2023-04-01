@@ -1,9 +1,9 @@
-type TodoInputStateType = {
+export type TodoInputStateType = {
   text: string;
 };
 
 // 입력할때는 change, 모두 지우는 clear
-type TodoInputType =
+export type TodoInputActionType =
   | {
       type: 'change';
       payload: string;
@@ -12,7 +12,7 @@ type TodoInputType =
       type: 'clear';
     };
 
-export const todoInputReducer = (state: TodoInputStateType, action: TodoInputType) => {
+export const todoInputReducer = (state: TodoInputStateType, action: TodoInputActionType) => {
   switch (action.type) {
     case 'change':
       return {

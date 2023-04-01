@@ -2,29 +2,36 @@ import styles from './TodoListTools.module.css';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { CgRadioCheck } from 'react-icons/cg';
+import { useTodoDispatch, useTodoState } from '../Todo/TodoProvider';
 
-interface TodoListToolsProps {
-  onToggleAllClick: () => void;
-  onRemoveAllClick: () => void;
-  isAllChecked: boolean;
-}
+const TodoListTools = () => {
+  const todoState = useTodoState();
+  const todoDispatch = useTodoDispatch();
 
-const TodoListTools = (props: TodoListToolsProps) => {
+  const isTodoAllChecked = () => {
+    return todoState.todos.every((todo) => todo.isChecked);
+  };
+
   const handleToggleAllClick = () => {
-    props.onToggleAllClick();
+    todoDispatch({
+      type: 'allChecked',
+      payload: isTodoAllChecked(),
+    });
   };
 
   const handleRemoveAllClick = () => {
-    props.onRemoveAllClick();
+    todoDispatch({
+      type: 'allRemove',
+    });
   };
-  console.log(props.isAllChecked);
+
   return (
     <section className={styles.container}>
       <button
         className={styles.button}
         onClick={handleToggleAllClick}
       >
-        {props.isAllChecked ? (
+        {isTodoAllChecked() ? (
           <>
             <CgRadioCheck className={styles.checkAll} />
             전체완료
