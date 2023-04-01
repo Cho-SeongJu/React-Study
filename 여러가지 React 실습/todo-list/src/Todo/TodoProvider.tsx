@@ -1,6 +1,7 @@
 import { Dispatch, ReactNode, createContext, useContext, useReducer } from 'react';
 import { TodoActionType, TodoStateType, todoReducer } from './todoReducer';
 import { TodoInputActionType, TodoInputStateType, todoInputReducer } from './TodoInputReducer';
+import { loadTodos } from './todoStoragre';
 
 interface TodoProviderProps {
   children: ReactNode;
@@ -12,8 +13,8 @@ const InputTodoContext = createContext<TodoInputStateType | null>(null);
 const InputTodoDispatchContext = createContext<Dispatch<TodoInputActionType> | null>(null);
 
 export const TodoProvider = (props: TodoProviderProps) => {
+  const [todoState, todoDispatch] = useReducer(todoReducer, { todos: loadTodos() });
   const [inputState, inputDispatch] = useReducer(todoInputReducer, { text: '' });
-  const [todoState, todoDispatch] = useReducer(todoReducer, { todos: [] });
 
   // context는 안에있는 value값이 바뀌면 하위가 랜더링을 다시 하게 된다. state가 바뀌었을때 dispatch는 바뀌지 않기때문에 별개로 나누어준다.
   return (
