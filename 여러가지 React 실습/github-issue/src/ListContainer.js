@@ -4,43 +4,98 @@ import Button from './components/Button';
 import ListItem from './components/ListItem';
 import ListItemLayout from './components/ListItemLayout';
 import cx from 'clsx';
+import Modal from './components/Modal';
+import Pagination from './components/Pagination';
 
 const ListContainer = () => {
   const [inputValue, setInputValue] = useState('is:pr is:open');
+  const [list, setList] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     console.log({ inputValue });
   }, [inputValue]);
 
   return (
-    <div className={styles.listContainer}>
-      <div className={styles.topSection}>
-        <input
-          className={styles.input}
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <Button style={{ fontSize: '14px', backgroundColor: 'green', color: 'white' }}>New Issue</Button>
-      </div>
-      <OpenClosedFilters />
-      <ListItemLayout className={styles.listFilter}>
-        <div className={styles.filterList}>
-          <span>Author</span>
-          <span>Label</span>
-          <span>Projects</span>
-          <span>Milestones</span>
-          <span>Assignee</span>
-          <span>Sort</span>
+    <>
+      <div className={styles.listContainer}>
+        <div className={styles.topSection}>
+          <input
+            className={styles.input}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <Button style={{ fontSize: '14px', backgroundColor: 'green', color: 'white' }}>New Issue</Button>
         </div>
-      </ListItemLayout>
-      <div className={styles.container}>
-        <ListItem
-          badges={[
-            {
-              color: 'red',
-              title: 'Bug2',
-            },
-          ]}
+        <OpenClosedFilters />
+        <ListItemLayout className={styles.listFilter}>
+          <ListFilter
+            onChangeFilter={(filteredData) => {
+              // 필터링된 요소에 맞게 데이터를 불러오기
+              // const data = getData("필터링된 정보")
+            }}
+          />
+        </ListItemLayout>
+        <div className={styles.container}>
+          {list.map((listitem, index) => (
+            <ListItem
+              key={index}
+              badges={[
+                {
+                  color: 'red',
+                  title: 'Bug2',
+                },
+              ]}
+            />
+          ))}
+        </div>
+      </div>
+      <div className={styles.paginationContainer}>
+        <Pagination
+          maxPage={10}
+          currentPage={page}
+          onClickPageButton={(number) => setPage(number)}
+        />
+      </div>
+    </>
+  );
+};
+
+const ListFilter = ({ onChangeFilter }) => {
+  return (
+    <>
+      <div className={styles.filterList}>
+        <ListFilterItem>Author</ListFilterItem>
+        <ListFilterItem>Label</ListFilterItem>
+        <ListFilterItem>Projects</ListFilterItem>
+        <ListFilterItem>Milestones</ListFilterItem>
+        <ListFilterItem>Assignee</ListFilterItem>
+        <ListFilterItem>Sort</ListFilterItem>
+      </div>
+    </>
+  );
+};
+
+const ListFilterItem = ({ children, onChangeFilter }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <div className={styles.filterItem}>
+      <span
+        role="button"
+        onClick={() => setShowModal(true)}
+      >
+        {children} ▾
+      </span>
+      <div className={styles.modalContainer}>
+        <Modal
+          opened={showModal}
+          onClose={() => setShowModal(false)}
+          placeholder="Filter Labels"
+          searchDataList={['bug', 'Labels', 'Apple']}
+          onClickCell={() => {
+            onChangeFilter();
+          }}
         />
       </div>
     </div>

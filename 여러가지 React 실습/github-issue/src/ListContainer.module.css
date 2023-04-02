@@ -1,20 +1,13 @@
 .listContainer {
   padding: 0 32px;
   margin-top: 24px;
+  height: 500px;
 }
 
 .topSection {
   display: flex;
   flex-direction: 'space-between';
   margin-bottom: 20px;
-}
-
-.listFilter {
-  margin-top: 20px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  background: rgb(246, 248, 250);
-  padding: 16px;
 }
 
 .input {
@@ -28,14 +21,28 @@
   box-shadow: none;
 }
 
+.listFilter {
+  margin-top: 20px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background: rgb(246, 248, 250);
+  padding: 16px;
+}
+
 .filterList {
   display: flex;
   align-items: center;
 }
 
-.filterList > span {
+.filterList > div > span {
   padding: 0 16px;
   line-height: 21px;
+  cursor: pointer;
+  color: #57606a;
+}
+
+.filterList > div > span:hover {
+  color: #000000;
 }
 
 .textFilter {
@@ -45,4 +52,20 @@
 
 .selected {
   font-weight: 800;
+}
+
+.modalContainer {
+  top: 20px;
+  left: 15px;
+  position: absolute;
+}
+
+.filterItem {
+  position: relative;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
