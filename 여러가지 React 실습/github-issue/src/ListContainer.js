@@ -6,15 +6,28 @@ import ListItemLayout from './components/ListItemLayout';
 import cx from 'clsx';
 import Modal from './components/Modal';
 import Pagination from './components/Pagination';
+import axios from 'axios';
+
+const GITHUB_API = 'https://api.github.com';
 
 const ListContainer = () => {
   const [inputValue, setInputValue] = useState('is:pr is:open');
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
+  const [isOpenMode, setIsOpenMode] = useState(true);
+  const [params, setParams] = useState();
+
+  //key=value&key=value
+  async function getData(params) {
+    const data = await axios.get(`${GITHUB_API}/repos/facebook/react/issues`, {
+      params: params,
+    });
+    setList(data.data);
+  }
 
   useEffect(() => {
-    console.log({ inputValue });
-  }, [inputValue]);
+    getData({ page: page, state: isOpenMode ? 'open' : 'closed', ...params });
+  }, [page, isOpenMode, params]);
 
   return (
     <>
@@ -27,12 +40,16 @@ const ListContainer = () => {
           />
           <Button style={{ fontSize: '14px', backgroundColor: 'green', color: 'white' }}>New Issue</Button>
         </div>
-        <OpenClosedFilters />
+        <OpenClosedFilters
+          isOpenMode={isOpenMode}
+          onClickMode={setIsOpenMode}
+        />
         <ListItemLayout className={styles.listFilter}>
           <ListFilter
-            onChangeFilter={(filteredData) => {
+            onChangeFilter={(params) => {
               // 필터링된 요소에 맞게 데이터를 불러오기
               // const data = getData("필터링된 정보")
+              setParams(params);
             }}
           />
         </ListItemLayout>
@@ -40,12 +57,7 @@ const ListContainer = () => {
           {list.map((listitem, index) => (
             <ListItem
               key={index}
-              badges={[
-                {
-                  color: 'red',
-                  title: 'Bug2',
-                },
-              ]}
+              data={listitem}
             />
           ))}
         </div>
@@ -62,39 +74,88 @@ const ListContainer = () => {
 };
 
 const ListFilter = ({ onChangeFilter }) => {
+  const [showModal, setShowModal] = useState('');
+  const [list, setList] = useState([]);
+  // const filterList = ['Author', 'Label', 'Projects', 'Miledstones', 'Assignee', 'Sort'];
+  const filterList = ['Label', 'Miledstone', 'Assignee'];
+
+  async function getData(apiPath) {
+    const data = await axios.get(`${GITHUB_API}/repos/facebook/react/${apiPath}`);
+
+    let result = [];
+    switch (apiPath) {
+      case 'assignees':
+        result = data.data.map((d) => ({
+          name: d.login,
+        }));
+        break;
+
+      case 'miledstones':
+        result = data.data.map((d) => ({
+          name: d.title,
+        }));
+        break;
+
+      case 'lables':
+      default:
+        result = data.data;
+    }
+    console.log(result);
+    // 데이터 가공 name, title, login -> name
+    setList(result);
+  }
+
+  useEffect(() => {
+    if (showModal) {
+      const apiPath = `${showModal.toLowerCase()}s`;
+      getData(apiPath);
+    }
+  }, [showModal]);
+
   return (
     <>
       <div className={styles.filterList}>
-        <ListFilterItem>Author</ListFilterItem>
-        <ListFilterItem>Label</ListFilterItem>
-        <ListFilterItem>Projects</ListFilterItem>
-        <ListFilterItem>Milestones</ListFilterItem>
-        <ListFilterItem>Assignee</ListFilterItem>
-        <ListFilterItem>Sort</ListFilterItem>
+        {filterList.map((filter) => (
+          <ListFilterItem
+            searchDataList={list}
+            key={filter}
+            onClick={() => setShowModal(filter)}
+            onClose={() => setShowModal()}
+            showModal={showModal === filter}
+            onChangeFilter={onChangeFilter}
+          >
+            {filter}
+          </ListFilterItem>
+        ))}
       </div>
     </>
   );
 };
 
-const ListFilterItem = ({ children, onChangeFilter }) => {
-  const [showModal, setShowModal] = useState(false);
+const ListFilterItem = ({ children, onClick, onClose, showModal, onChangeFilter, searchDataList }) => {
+  const [list, setList] = useState(searchDataList);
+
+  useEffect(() => {
+    setList(searchDataList);
+  }, [searchDataList]);
 
   return (
     <div className={styles.filterItem}>
       <span
         role="button"
-        onClick={() => setShowModal(true)}
+        onClick={onClick}
       >
         {children} ▾
       </span>
       <div className={styles.modalContainer}>
         <Modal
+          title={children}
           opened={showModal}
-          onClose={() => setShowModal(false)}
+          onClose={onClose}
           placeholder="Filter Labels"
-          searchDataList={['bug', 'Labels', 'Apple']}
-          onClickCell={() => {
-            onChangeFilter();
+          searchDataList={list}
+          onClickCell={(params) => {
+            onChangeFilter(params);
           }}
         />
       </div>
@@ -102,27 +163,26 @@ const ListFilterItem = ({ children, onChangeFilter }) => {
   );
 };
 
-const OpenClosedFilters = ({ data }) => {
-  const [isOpenMode, setIsOpenMode] = useState(true);
+const OpenClosedFilters = ({ isOpenMode, onClickMode }) => {
   // const data = getData();
   // const opendData = data.filter((d) => d.state === 'open')
   // const closedData = data.filter((d) => d.state === 'closed')
-  const openModeDataSize = 1;
-  const closeModeDataSize = 2;
+  // const openModeDataSize = 1;
+  // const closeModeDataSize = 2;
 
   return (
     <>
       <OpenClosedFilter
-        size={openModeDataSize}
+        // size={openModeDataSize}
         state="Open"
         selected={isOpenMode}
-        onClick={() => setIsOpenMode(true)}
+        onClick={() => onClickMode(true)}
       />
       <OpenClosedFilter
-        size={closeModeDataSize}
+        // size={closeModeDataSize}
         state="Closed"
         selected={!isOpenMode}
-        onClick={() => setIsOpenMode(false)}
+        onClick={() => onClickMode(false)}
       />
     </>
   );

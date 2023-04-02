@@ -1,5 +1,5 @@
 import styles from './App.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from './Header';
 import ListContainer from './ListContainer';
 import Footer from './Footer';
