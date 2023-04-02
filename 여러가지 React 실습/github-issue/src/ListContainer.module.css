@@ -1,12 +1,19 @@
 .listContainer {
   padding: 0 32px;
   margin-top: 24px;
-  height: 24px;
 }
 
 .topSection {
   display: flex;
   flex-direction: 'space-between';
+}
+
+.listFilter {
+  margin-top: 20px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background: rgb(246, 248, 250);
+  padding: 16px;
 }
 
 .input {
@@ -18,4 +25,14 @@
   width: 60%;
   margin-right: auto;
   box-shadow: none;
+}
+
+.filterList {
+  display: flex;
+  align-items: center;
+}
+
+.filterList > span {
+  padding: 0 16px;
+  line-height: 21px;
 }
