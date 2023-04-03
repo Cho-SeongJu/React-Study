@@ -17,7 +17,7 @@ export const useForm = ({
     setInputValues({ ...inputValues, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setIsSubmitting(true);
@@ -37,7 +37,12 @@ export const useForm = ({
     }
 
     if (errorKeys.length === 0) {
-      onSubmit();
+      try {
+        const result = await onSubmit();
+        onSuccess(result);
+      } catch (e) {
+        onErrors();
+      }
       return;
     }
   };

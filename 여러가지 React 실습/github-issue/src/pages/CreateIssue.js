@@ -1,18 +1,34 @@
+import axios from 'axios';
 import Button from '../components/Button';
 import TextField from '../components/TextField';
 import { useForm } from '../hooks';
 import styles from './CreateIssue.module.css';
 import cx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const GITHUB_API = 'https://api.github.com';
 
 export default function CreateIssue() {
   const inputRef = useRef();
   const textareaRef = useRef();
+  const navigate = useNavigate();
   const { isSubmitting, inputValues, onChange, errors, handleSubmit } = useForm({
     initialValues: { title: '', body: '' },
-    onSubmit: () => console.log('완료'),
+    onSubmit: async () =>
+      await axios.post(`${GITHUB_API}/repos/Cho-SeongJu/React-Study/issues`, inputValues, {
+        headers: {
+          Authorization: process.env.REACT_APP_GITHUB_TOKEN,
+          'Content-Type': 'applications/json',
+        },
+      }),
     validate,
     refs: { title: inputRef, body: textareaRef },
+    onSuccess: (result) => {
+      console.log({ result });
+      alert('등록되었습니다.');
+      navigate('/', { replace: true });
+    },
   });
 
   return (
