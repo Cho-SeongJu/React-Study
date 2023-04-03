@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import styles from './ListContainer.module.css';
 import Button from './components/Button';
 import ListItem from './components/ListItem';
@@ -13,9 +14,17 @@ const GITHUB_API = 'https://api.github.com';
 const ListContainer = () => {
   const [inputValue, setInputValue] = useState('is:pr is:open');
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
-  const [isOpenMode, setIsOpenMode] = useState(true);
-  const [params, setParams] = useState();
+  // const [page, setPage] = useState(1);
+  // const [isOpenMode, setIsOpenMode] = useState(true);
+  // const [params, setParams] = useState();
+
+  const [searchParams, setSearchParams] = useSearchParams(1);
+
+  const page = parseInt(searchParams.get('page'), 10);
+  const state = searchParams.get('state');
+
+  console.log(page);
+  console.log(state);
 
   //key=value&key=value
   async function getData(params) {
@@ -26,8 +35,8 @@ const ListContainer = () => {
   }
 
   useEffect(() => {
-    getData({ page: page, state: isOpenMode ? 'open' : 'closed', ...params });
-  }, [page, isOpenMode, params]);
+    getData(searchParams);
+  }, [searchParams]);
 
   return (
     <>
@@ -38,18 +47,23 @@ const ListContainer = () => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <Button style={{ fontSize: '14px', backgroundColor: 'green', color: 'white' }}>New Issue</Button>
+          <Link
+            to="/new"
+            className={styles.link}
+          >
+            <Button style={{ fontSize: '14px', backgroundColor: 'green', color: 'white', cursor: 'pointer' }}>New Issue</Button>
+          </Link>
         </div>
         <OpenClosedFilters
-          isOpenMode={isOpenMode}
-          onClickMode={setIsOpenMode}
+          isOpenMode={state !== 'closed'}
+          onClickMode={(mode) => setSearchParams({ mode })}
         />
         <ListItemLayout className={styles.listFilter}>
           <ListFilter
             onChangeFilter={(params) => {
               // 필터링된 요소에 맞게 데이터를 불러오기
               // const data = getData("필터링된 정보")
-              setParams(params);
+              setSearchParams(params);
             }}
           />
         </ListItemLayout>
@@ -65,8 +79,8 @@ const ListContainer = () => {
       <div className={styles.paginationContainer}>
         <Pagination
           maxPage={10}
-          currentPage={page}
-          onClickPageButton={(number) => setPage(number)}
+          currentPage={isNaN(page) ? 1 : page}
+          onClickPageButton={(number) => setSearchParams({ page: number })}
         />
       </div>
     </>
@@ -176,13 +190,13 @@ const OpenClosedFilters = ({ isOpenMode, onClickMode }) => {
         // size={openModeDataSize}
         state="Open"
         selected={isOpenMode}
-        onClick={() => onClickMode(true)}
+        onClick={() => onClickMode('open')}
       />
       <OpenClosedFilter
         // size={closeModeDataSize}
         state="Closed"
         selected={!isOpenMode}
-        onClick={() => onClickMode(false)}
+        onClick={() => onClickMode('closed')}
       />
     </>
   );

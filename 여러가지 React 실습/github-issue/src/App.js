@@ -11,6 +11,7 @@ import Projects from './pages/Project';
 import Security from './pages/Security';
 import PullRequest from './pages/PullRequest';
 import Nav from './components/Nav';
+import CreateIssue from './pages/CreateIssue';
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
         <Route
           path="/issue"
           element={<Issue />}
+        />
+        <Route
+          path="/new"
+          element={<CreateIssue />}
         />
         <Route
           path="/code"
