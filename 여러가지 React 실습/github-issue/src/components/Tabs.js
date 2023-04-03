@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styles from './Tabs.module.css';
 import cx from 'clsx';
 import { useLocation, Link } from 'react-router-dom';
@@ -13,17 +12,14 @@ const tabList = [
 ];
 
 const Tabs = () => {
-  const [selectedTabIdx, setSelectedTabIdx] = useState(0);
-
-  const data = useLocation();
+  const location = useLocation();
   return (
     <ul className={styles.tabList}>
       {tabList.map((tab, index) => (
         <Tab
           key={index}
           item={tab}
-          selected={data.pathname === tab.pathname}
-          onClick={() => setSelectedTabIdx(index)}
+          selected={(location.pathname === '/' ? '/issue' : location.pathname) === tab.pathname}
         />
       ))}
     </ul>
