@@ -1,10 +1,10 @@
 import axios from 'axios';
 import Button from '../components/Button';
 import TextField from '../components/TextField';
-import { useForm } from '../hooks';
+import { useForm, useUser } from '../hooks';
 import styles from './CreateIssue.module.css';
 import cx from 'clsx';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const GITHUB_API = 'https://api.github.com';
@@ -13,6 +13,8 @@ export default function CreateIssue() {
   const inputRef = useRef();
   const textareaRef = useRef();
   const navigate = useNavigate();
+  // const data = useContext(UserContext);
+  useUser();
   const { isSubmitting, inputValues, onChange, errors, handleSubmit } = useForm({
     initialValues: { title: '', body: '' },
     onSubmit: async () =>
@@ -69,6 +71,7 @@ export default function CreateIssue() {
 }
 
 function validate(values) {
+  console.log(values);
   let errors = {};
 
   if (values.title === '') {

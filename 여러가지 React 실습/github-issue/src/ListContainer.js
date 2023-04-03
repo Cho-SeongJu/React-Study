@@ -23,9 +23,6 @@ const ListContainer = () => {
   const page = parseInt(searchParams.get('page'), 10);
   const state = searchParams.get('state');
 
-  console.log(page);
-  console.log(state);
-
   //key=value&key=value
   async function getData(params) {
     const data = await axios.get(`${GITHUB_API}/repos/facebook/react/issues`, {
