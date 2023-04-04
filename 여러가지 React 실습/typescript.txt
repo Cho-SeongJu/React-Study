@@ -84,7 +84,7 @@ const STATE = {
 
 // const enum
 
-const enum STATE {
+const enum STATE {  
     OPEN = 'open'
     CLOSE = 'close'
 }
