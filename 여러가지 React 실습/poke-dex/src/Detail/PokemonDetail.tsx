@@ -1,13 +1,11 @@
 import styled from '@emotion/styled';
 import PokeMarkChip from '../Common/PokeMarkChip';
-import { PokemonDetailType, fetchPokemonDetail } from '../Service/pokemonService';
+import { PokemonDetailType, fetchPokemonDetailAPI } from '../Service/pokemonService';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PokeImageSkeleton } from '../Common/PokeImageSkeleton';
 import { useSelector } from 'react-redux';
 import { RootState } from '../Store';
-
-const IMAGE_URL = 'https://t1.daumcdn.net/tistoryfile/fs13/30_tistory_2008_12_23_18_01_4950a9072f77f?original';
 
 const PokemonDetail = () => {
   const { name } = useParams();
@@ -20,7 +18,7 @@ const PokemonDetail = () => {
     }
 
     (async () => {
-      const detail = await fetchPokemonDetail(name);
+      const detail = await fetchPokemonDetailAPI(name);
       setPokemon(detail);
       console.log(detail);
     })();

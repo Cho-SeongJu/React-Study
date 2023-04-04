@@ -3,7 +3,7 @@ import PokeNameChip from '../Common/PokeNameChip';
 import PokeMarkChip from '../Common/PokeMarkChip';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { PokemonDetailType, fetchPokemonDetail } from '../Service/pokemonService';
+import { PokemonDetailType, fetchPokemonDetailAPI } from '../Service/pokemonService';
 import { PokeImageSkeleton } from '../Common/PokeImageSkeleton';
 import { useIntersectionObserver } from 'react-intersection-observer-hook';
 import { useSelector } from 'react-redux';
@@ -31,7 +31,7 @@ const PokeCard = (props: PokeCardProps) => {
     }
 
     (async () => {
-      const detail = await fetchPokemonDetail(props.name);
+      const detail = await fetchPokemonDetailAPI(props.name);
       setPokemon(detail);
     })();
   }, [props.name, isVisible]);
