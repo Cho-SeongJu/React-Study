@@ -4,8 +4,7 @@ import PokeMarkChip from '../Common/PokeMarkChip';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { PokemonDetailType, fetchPokemonDetail } from '../Service/pokemonService';
-
-const IMAGE_URL = 'https://t1.daumcdn.net/tistoryfile/fs13/30_tistory_2008_12_23_18_01_4950a9072f77f?original';
+import { PokeImageSkeleton } from '../Common/PokeImageSkeleton';
 
 interface PokeCardProps {
   name: string;
@@ -27,15 +26,35 @@ const PokeCard = (props: PokeCardProps) => {
   }, [props.name]);
 
   if (!pokemon) {
-    return null; // TODO : 화면이 로딩중일 때 표시
+    return (
+      <Item color={'#fff'}>
+        <Header>
+          <PokeNameChip
+            name={'포켓몬'}
+            id={0}
+            color={'#ffca09'}
+          />
+        </Header>
+        <Body>
+          <PokeImageSkeleton />
+        </Body>
+        <Footer>
+          <PokeMarkChip />
+        </Footer>
+      </Item>
+    ); // TODO : 화면이 로딩중일 때 표시
   }
 
   return (
-    <Item onClick={handleClick}>
+    <Item
+      onClick={handleClick}
+      color={pokemon.color}
+    >
       <Header>
         <PokeNameChip
-          name={pokemon.name}
+          name={pokemon.koreanName}
           id={pokemon.id}
+          color={pokemon.color}
         />
       </Header>
       <Body>
@@ -51,7 +70,7 @@ const PokeCard = (props: PokeCardProps) => {
   );
 };
 
-const Item = styled.li`
+const Item = styled.li<{ color: string }>`
   display: flex;
   flex-direction: column;
 
@@ -71,7 +90,7 @@ const Item = styled.li`
   }
 
   &:active {
-    background-color: yellow;
+    background-color: ${(props) => props.color};
     opacity: 0.8;
     transition: background-color 0s;
   }
