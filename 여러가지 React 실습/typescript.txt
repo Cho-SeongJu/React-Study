@@ -55,3 +55,40 @@ css-Module
 CRA 의존성 react-scripts에 포함되어 있는 설정으로,
 webpack config 파일 내부의 이미지와 같은 설정으로 포함되어 있다.
 ex) [파일명].module.css의 규칙으로 사용가능
+
+
+
+
+
+
+enum 사용
+
+enum STATE {
+    OPEN = 'open'
+    CLOSE = 'close'
+}
+
+// Tree - Shaking
+사용하지 않는 코드를 삭제하는 기능
+
+enum은 타입스크립트에서 자체적으로 구현한 타입이다.
+JS로 변환하면 enum이 즉시실행함수로 변환이 되는데 그렇게 되면 tree-shaking이 되지 않는다.
+
+// Union type
+const STATE = {
+    OPEN: 'open',
+    CLOSE: 'close'
+} as const 
+
+-> 이렇게 하면 객체로 만들어진다. 
+
+// const enum
+
+const enum STATE {
+    OPEN = 'open'
+    CLOSE = 'close'
+}
+
+union type과 비슷한
+
+enum은 union type과 비교 했을 때 tree shaking이 되지 않으므로 union type을 추천
