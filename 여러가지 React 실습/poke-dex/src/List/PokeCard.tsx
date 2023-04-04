@@ -1,12 +1,19 @@
 import styled from '@emotion/styled';
 import PokeNameChip from '../Common/PokeNameChip';
 import PokeMarkChip from '../Common/PokeMarkChip';
+import { useNavigate } from 'react-router-dom';
 
 const IMAGE_URL = 'https://t1.daumcdn.net/tistoryfile/fs13/30_tistory_2008_12_23_18_01_4950a9072f77f?original';
 
 const PokeCard = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/pokemon/피카츄`);
+  };
+
   return (
-    <Item>
+    <Item onClick={handleClick}>
       <Header>
         <PokeNameChip />
       </Header>
@@ -34,6 +41,19 @@ const Item = styled.li`
 
   border: 1px solid #c0c0c0;
   box-shadow: 0 1px 3px 1px #c0c0c0;
+
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    background-color: yellow;
+    opacity: 0.8;
+    transition: background-color 0s;
+  }
 `;
 
 const Header = styled.section`
