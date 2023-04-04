@@ -272,3 +272,7 @@ Fetch API
 - 최신 브라우저 위주의 호환성
 - XSRF 보안 기능 미흡
 - Request Cancel이 불가
+
+
+외부 async 함수를 사용할려면 
+asnyc await 문법을 사용할려면 즉시 실행 함수를 사용해야한다.
