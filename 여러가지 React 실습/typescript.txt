@@ -92,3 +92,8 @@ const enum STATE {
 union type과 비슷한
 
 enum은 union type과 비교 했을 때 tree shaking이 되지 않으므로 union type을 추천
+
+
+ex) data.labels as BadgeProps  
+타입 추론 
+BadgeProps만 할당이 된다. 다른 데이터 타입이 절대 아니다.
