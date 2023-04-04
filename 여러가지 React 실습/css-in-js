@@ -1,0 +1,10 @@
+변수명, css 중첩 등 걱정들을 해결해준다.
+컴포넌트 기반 개발, 컴포넌트 재활용
+
+css-in-js 대표적인 라이브러리
+styled-components, emotion
+
+emotion 사용
+npm i @emotion/styled @emotion/react
+
+emotion 채택한 이유는 사용률이 더 높기 때문.

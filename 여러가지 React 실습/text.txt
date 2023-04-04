@@ -1,0 +1,15 @@
+SPA(Single Page Application)
+Single Page === 1개의 HTML 파일
+React, Vue, Angular등에서 기본으로 선택한 웹 페이지 구현 방식
+하나의 HTML 파일에서 내부 영역을 JS를 이용  동적으로 바꿈
+
+MPA(Multiple Page Application)
+Multiple Page === 여러개의 HTML 파일
+React, Vue, Angular가 유행하기 전 대부분의 웹 개발 방식
+서버에서 HTML 파일의 내용을 채워서, URL 경로마다 다른 HTML 파일을 사용자에게 내려줌
+
+User -> url -> 브라우저 -> Request -> server
+
+MPA에서는 url에 각각 맞는 html을 서버가 내려줬다 .
+SPA에서는 어떠한 url를 받던 하나의 html만 받는다.
+
