@@ -4,12 +4,15 @@ import { PokemonDetailType, fetchPokemonDetail } from '../Service/pokemonService
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PokeImageSkeleton } from '../Common/PokeImageSkeleton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../Store';
 
 const IMAGE_URL = 'https://t1.daumcdn.net/tistoryfile/fs13/30_tistory_2008_12_23_18_01_4950a9072f77f?original';
 
 const PokemonDetail = () => {
   const { name } = useParams();
   const [pokemon, setPokemon] = useState<PokemonDetailType | null>(null);
+  const imageType = useSelector((state: RootState) => state.imageType.type);
 
   useEffect(() => {
     if (!name) {
@@ -41,7 +44,7 @@ const PokemonDetail = () => {
     <Container>
       <ImageContainer>
         <Image
-          src={pokemon.images.dreamWorldFront}
+          src={pokemon.images[imageType]}
           alt={pokemon.koreanName}
         ></Image>
       </ImageContainer>

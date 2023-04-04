@@ -2,13 +2,17 @@ import { BrowserRouter } from 'react-router-dom';
 import PageHeader from './Common/PageHeader';
 // import PokeCardList from './List/PokeCardList';
 import PageNavigator from './PageNavigator';
+import { Provider } from 'react-redux';
+import { store } from './Store';
 
 function App() {
   return (
-    <BrowserRouter>
-      <PageHeader />
-      <PageNavigator />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <PageHeader />
+        <PageNavigator />
+      </BrowserRouter>
+    </Provider>
   );
 }
 

@@ -276,3 +276,43 @@ Fetch API
 
 외부 async 함수를 사용할려면 
 asnyc await 문법을 사용할려면 즉시 실행 함수를 사용해야한다.
+
+Redux
+Context Api(recoil, mobx..) 나오기 전부터 사용된 전역상태관리 라이브러리
+
+- 전역 상태 관리
+- Flux 패턴 기반 데이터 흐름 제어
+- Middleware를 이용한 Data Fetching
+- 프로젝트의 데이터 흐름을 일관적으로 관리할 수 있게 해주는 장점
+
+Flux 패턴
+Action -> Dispatcher -> Store -> View
+
+Action 
+- 데이터의 변경을 발생시키는 행위(Update)
+
+Dispatcher
+- 모든 데이터 흐름을 관리
+- Redux와  useReducer의 Reducer와 유사
+- Action이 발생했을 때 Store를 어떻게 업데이트 할지 결정
+
+Store
+- 어플리케이션의 상태를 저장
+- 여러개의 Store를 가질 수 있음 (Redux는 단일 Store)
+- 여러개의 Store는 서로를 직접 변경할 수 없음
+
+View
+- Store 값이 변경되면 View가 갱신
+- 직접적으로 Store 값을 변경할 수 없음
+- View에서 다시 Action을 발생시켜 단방향 흐름을 진행
+Flux 패턴의 핵심은 단방향 데이터
+
+
+Redux 데이터 흐름
+
+Action -> Middileware -> Reducer -> Store
+^-----------view----------------------/
+
+Middleware
+- Action이 발생되었을 때 Reducer로 향하는 흐름을 중간에 관찰하거나, 가로채고 다른 작업을
+할 수 있으며 이후에 Reducer로 액션을 발생 시킬 수 있음
