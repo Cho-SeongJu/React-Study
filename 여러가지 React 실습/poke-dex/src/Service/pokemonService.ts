@@ -11,11 +11,11 @@ export interface PokemonListResponseType {
   }[];
 }
 
-export const fetchPokemons = async () => {
-  const defaultUrl = 'https://pokeapi.co/api/v2/pokemon';
+export const fetchPokemons = async (nextUrl?: string) => {
+  const requestUrl = nextUrl ? nextUrl : 'https://pokeapi.co/api/v2/pokemon';
 
   // response에 해당 타입으로 데이터가 넘어온다.
-  const response = await remote.get<PokemonListResponseType>(defaultUrl);
+  const response = await remote.get<PokemonListResponseType>(requestUrl);
 
   return response.data;
 };
