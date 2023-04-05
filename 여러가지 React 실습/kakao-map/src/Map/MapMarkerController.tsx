@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 interface MapMarkerControllerProps {
   places: PlaceType[];
+  selectedPlaceId?: string;
 }
 
 const MapMarkerController = (props: MapMarkerControllerProps) => {
@@ -25,11 +26,13 @@ const MapMarkerController = (props: MapMarkerControllerProps) => {
 
   return (
     <>
-      {props.places.map((place) => {
+      {props.places.map((place, index) => {
         return (
           <MapMarker
             key={place.id}
             place={place}
+            showInfo={props.selectedPlaceId === place.id}
+            index={index}
           />
         );
       })}
