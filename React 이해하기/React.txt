@@ -122,3 +122,434 @@ CRA보다 더 빠르고 커스터마이징하기 더 좋다.
 예시) 
 - 세미콜론 사용여부
 - 의존성 import 순서 조정
+
+------------------------------------------------------------------------
+리액트 기본 문법
+
+JSX란?
+
+const element = <h1>element</h1>
+
+Javascript의 연장선
+HTML처럼 리액트에서 DOM element를 표현할 수 있게 해준다.
+
+리액트는 내부적으로 JSX문법을 Javascript로 활용하여 html로 변환을 해주는데
+
+const element = React.createElement(
+	'h1',
+	{className: 'greeting'},
+	'Hello, world!'
+)
+
+
+조건부 렌더링
+if else 
+삼항 연산자 
+&& 연산자 : 좌항이 참일 경우에만 동작 
+||(logical operator) : 앞에 값이 있으면 그냥 그걸 랜더링하고 아니면 뒤에 값을 랜더링
+
+
+-------------------------------------------------------------------------------------
+## Component
+
+컴포넌트들은 UI를 독립적이고 재사용성이 있는 분리 되어 있는 조각들로 나눌 수 있게 해주는 것이 컴포넌트이다.
+
+컴포넌트 종류
+1) Functional Component(함수 컴포넌트)
+함수에서 리턴값으로 dom element를 주는것이 함수 컴포넌트
+
+2) class component
+
+함수 컴포넌트에서는 dom element를 리턴해줬지만 클래스 컴포넌트에서는 랜더라는 함수에서 dom element를 리턴해줘야 한다.
+
+2. 재사용성 
+한번 만들면 여기저기서 어디든 넣을 수 있다.
+
+3. 컴포넌트 안에 로직도 넣을 수 있다.
+
+컴포넌트 안에서 로직을 수행해서 렌더링 할 수 있고 다른 컴포넌트들과는 독립적으로 돌아가는 것이 독립성
+
+
+
+## Props 
+
+Properties
+- 상위 컴포넌트에서 하위 컴포넌트에 정보를 넘겨주는 방법이다.
+
+
+Object Destructuring
+props로 받으면 props.name props.age처럼 매번 prop를 쓰면 불편하다 따라서
+{name, age}로 하면 매번 props를 쓰지 않아도 된다. 이게 object destructuring이다. props를 분해시키는 것이다.
+
+
+props.children
+
+const Layout = ({children}) => {
+	return <div>
+				<Header />
+				{children}
+				<Footer />
+		   </div>
+}
+
+const HomePage = () => {
+	return <Layout>
+			<div> This is Home Page </div>
+		   </Layout>
+	
+div태그안에 문구를 출력하는데 이 문구가 children이다.
+
+
+## React Hooks란?
+React 16.8 전에서는 Class Component를 사용하고 이후에는 함수 컴포넌트와 훅들을 사용한다.
+
+hooks call은 Top level에서만 가능하다. 최상위에 위치해야한다.
+
+React Function에서만 hook을 호출할 수 있다.
+React Function은
+1) functional component
+2) custom Hook (custom Hook을 만들때는 꼭 앞에 use를 사용)
+
+## State란?
+- 컴포넌트의 상태를 저장
+- re-render 사이사이에 값이 변하지 않도록 기억
+- 값이 변했을때는 컴포넌트가 다시 그려지도록 re-rendering을 트리거
+
+트리거 : 트리거(Trigger)는 어느 특정한 동작에 반응해 자동으로 필요한 동작을 실행하는 것을 뜻한다.
+
+React Lifecycle
+
+## useState
+
+const [count, setCount] = useState(0)
+
+useState(initialValue) 
+initialValue - 초기 값
+
+- return [value, setter] 배열
+	- value - 현재 값
+	- setter - 값 업데이트 해주기 위한 함수
+	
+	
+const [count, setCount] = useState(0);
+
+const updateCount = () => {
+	setCount((prev) => prev + 1)
+}
+
+여기서 prev는 setCount 호출 됐을 당시에 count값이다.
+왜 이렇게 쓰면 setter함수는 비동기적이다. 그래서 호출을 여러번 반복적으로 빠르게 했을 때 count가 1인 상태에서 setCount가 10번 호출될 수도 있다.
+그래서 10이 아닌 2로 될 수도 있다는 것이다. 따라서 이런 현상을 방지하기 위해 이렇게 사용한다.
+
+## useEffect
+
+state이 바뀌면서 생기는 side Effect를 useEffect안에서 선언해준다.
+
+Component가 마운트 됐을때만 실행시키고 싶을때
+
+useEffect(() => {
+
+}, [])
+
+
+cleanup Function
+
+useEffect(() => {
+	const handleKeydown = (e) => {
+		if(e.key === 'enter') {
+			submit();
+		}
+	}
+	window.addEventListener('keydown', handleKeydown);
+	
+	return () => {
+		window.removeEventListener('keydown', handleKeydown)
+	}
+}, []);
+
+## useCallback
+
+const memoizedCallback = useCallback(() => {
+	doSomething(a, b)
+}, [a, b], // dependency array
+);
+
+a나 b가 바뀔때만 callback함수를 생성하고 그게 아니면 생성하지 않는다.'
+
+특정 함수 같은 경우 매번 새로생성되면 불필요한 성능 낭비가 될 떄가 있다. 이럴떄 useCallback을 사용하여 기억을 해놓는 것이다.
+그래서 리랜더링 될때마다 새로 생성되지 않는다.
+
+
+useEffect와 함께 활용할때는 이렇게
+
+const memoizedCallback = useCallback(() => {
+	doSomething(a, b)
+}, [a, b], // dependency array
+);
+
+useEffect(() => {
+	memoizedCallback()
+}, [memoizedCallback]
+
+
+useEffect(() => {
+	const getData = async () => {
+		const response = await fetch('some url')
+		setData(response.data)
+	}
+	getData();
+}, [someDeps])
+
+이렇게 하면 someDeps 값이 바꾸면 매번 getData라는 함수를 생성해서 실행한다. 이렇게 되면 메모리 낭비가 될 수도 있다.
+이럴 때 useCallback릏 사용한다.
+
+const getData useCallback(async () => {
+	const response = await fetch('some url');
+	setData(response.data);
+}, [someDeps])
+
+useEffect(() => {
+	getData();
+}, [getData])
+
+## Memoization
+최적화 하는 기법인데 결과값을 저장해서 그 캐싱된(임시적으로 저장된) 결과값을 리턴해줘서 같은 input이 들어왔을 떄는 이미 저장된 결과값을 활용하여
+좀 더 빠르게 프로그램을 가속화할 수 있는 최적화 기법이다.
+
+cache란?
+임시적으로 결과를 저장하는 공간이다. 한번 수행한 작업의 결과를 임시적으로 저장하는 공간이 cache이다.
+
+useMemo()
+
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+
+
+React.memo
+const MyComponent = React.memo(function MyComponent(props) {
+});
+
+컴포넌트 전체를 memoization하고 싶을 때 사용하는 함수이다. 컴포넌트에 props에 변경이 있을 때만 리랜더한다.
+
+## Array.map()을 이용한 효율적인 컴포넌트 렌더링
+배열에서 데이터를 가져와서 컴포넌트를 여러개 그려주고 싶을때 Array.map() 사용
+
+{names.map((name) => (
+	<div key={name}>{name}</div>
+))}
+
+key prop
+React가 렌더링된 element를 식별하기 위한 prop
+`key`가 생략되어있으면, 어떤 element를 업데이트 해야하는지 찾지 못해서 제대로 렌더링이 되지 않는다.
+왠만하면 데이터에서 unique한 필드로 key를 활용하는 것이 좋다.
+
+## 이벤트 처리
+
+버튼 클릭
+const Button = () => {
+	const handleClick = (e) => {
+		e.preventDefault()
+	}
+	
+	return <button onClick={handleClick}>Click me!</button>
+}
+
+input 입력
+const Input = () => {
+	const [input, setInput] = useState('')
+	return <input type='text' onChange{(e => setInput(e.target.value)}>
+}
+
+useTransition
+
+const [isPending, startTransition] = useTransition();
+isPending - transition이 대기상태인지 알려주는 boolean
+startTransition - transition을 등록시키는 함수(debounce와 동일한 기능)
+
+
+## ref란
+ref는 render 메서드에서 생성된 dom 노드나 react 엘리먼트에 접근하는 방법을 제공한다.
+자식컴포넌트에 대한 reference를 부모에 넘겨둘때 사용
+
+언제 쓰냐면
+- 포커스, 텍스트 선택영여그 혹은 미디어의 재생을 관리할 때
+- 애니메이션을 직접적으로 실행시킬 때
+- 서드 파티 DOM 라이브러리를 React와 같이 사용할 때.
+
+function TextInputWithFocusButton() {
+	const inputEl = useRef(null);
+	const onButtonClick = () => {
+		inputEl.current.focus()
+	};
+	return (
+		<>
+			<input ref={inputEl} type="text" />
+			<button onClick={onButtonClick}> Focus the input</button>
+		</>
+	);
+}
+
+useRef의 특징
+리턴되는 객체의 형태
+{
+	current : 현재 ref가 담고 있는 객체
+}
+
+리렌더링을 트리거하지 않음
+
+## forwardRef
+자식 컴포넌트를 부모한테 조작하고 싶을 때 사용한다.
+
+const FancyButton = React.fowardRef((props, ref) => (
+	<button ref={ref} className="FancyButton">
+		{props.children}
+	</button>
+));
+
+const ref = React.createRef();
+<FancyButton ref={ref}>Click me!</FancyButton>;
+
+useImperativeHandle
+- 부모가 자식 컴포넌트를 조작하긴 하건데 모든 걸 다 하진 않을거에요!
+
+useImperativeHandle(ref, createHandle, [deps])
+
+## callbackRef
+
+useRef, createRef로 생성한 ref가 아닌, 함수를 ref 파라미터에 넘겨준다.
+
+
+## custom hook
+
+
+
+## css로 스타일링 하는 방법
+1. inline style
+const style = {
+	backgroundColor : green
+}
+
+const BlackBg = () => {
+	return <div style={style>{children}</div>
+}
+
+2. css 방법
+css파일을 import 하여 사용
+
+3. css modules
+import styles from './style.module.css'
+
+const Button = () => {
+	return <button className = {styles.asd}></button>
+}
+
+class 여러개를 쓰고 싶다면?
+classNames라는 라이브러리가 존재한다 classNames를 사용하면 된다. 또는 clsx
+또는 classNmaes/bind
+
+
+## styled Components(css in js)
+js html css를 한 파일에서 관리하기 위해 만들어짐
+
+import styled from 'styled-components';
+
+const Title = styled.h1`
+	font-size: 15px
+	color: white
+`
+
+<Title>Hello World</Title>
+
+
+props를 활용하여 style을 지정할 수 있다.
+const Button = styled.a`
+	${props => props.primary && css`
+		background: white;
+		color: black;
+	`}
+`
+
+<Button
+	primary
+>
+</Button>
+
+## 컴포넌트 라이브러리
+Material UI 
+- 구글이 만든 컴포넌트 라이브러리
+
+Ant Design
+- 중국의 Ant financial에서 만든 컴포넌트 라이브러리
+
+Chakra UI
+- 빠르게 리액트 앱을 만들게 해주는 것을 포커스한 라이브러리
+
+React Bootstrap
+- 모던 프론트엔드 디자인 라이브러리의 조상
+
+
+
+## SPA(Single Page Application)
+장점
+- 페이지를 이동할 때 새로 로딩하지 않기 때문에 부드러운 경험을 제공할 수 있다.
+- 최초 로딩 이후에는 데이터만 새로 받아오면 되기 때문에 빠르게 새 페이지를 로딩할 수 있다.
+
+단점
+- 검색엔진 최적화 이슈가 있다.
+- 검색엔진은 지금 보는 페이지가 어떤 페이지인지 알기가 쉽지 않다.
+- 이걸 해결해주는 라이브러리가 존재 (react-helmet)
+- 초기에 모든 리소스를 로딩해야 하므로 초기 로딩 속도가 상대적으로 느리다.
+
+
+## CSR(Client Side Rendering)
+Download HTML -> Download Javascript -> Evaluate JavaScript -> Fetch Data from API -> User see Content
+
+CSR에서 다른 페이지로 이동하려면?
+Routing Library를 활용하여 CSR에서도 url을 이용하여 페이지 이동을 할 수 있다. 
+react-router-dom
+
+
+## SSR(Server Side Rendering)
+ 서버에서 사용자에게 보여줄 페이지를 모두 구성하여 사용자에게 페이지를 보여주는 방식이다
+ 
+ npx create-next-app@latest
+ 
+
+
+## API
+Application Programming Interface
+
+API의 종류 
+REST API
+GraphQL API
+
+## REST API
+- 자원(Resource) - URI
+- 행위(Verb) - HTTP METHOD
+- 표현(Representations)
+
+규칙
+URI는 정보의 자원을 표현해야 한다.
+자원에 대한 행위는 HTTP Method(Get, Post, Put, Delete)로 표현한다.
+
+React에선 axios나 fetch로 호출
+
+api fetching library 
+- react-query
+- swr
+
+
+## GraphQL 
+
+GraphQL 특징
+- 원하는 필드만 골라서 요청
+- 한번에 요청으로 여러 리소스를 받음
+- 필드의 타입을 명확하게 정의
+
+react에서는 어떻게 활용하나
+- Apollo Client
+: 강력한 기능들을 가지고 있다.
+: 크롬 확장기능으로 쿼리 살펴보는 것도 가능
+- graphql-request
+: 제일 많이 쓰이는 요청 방식. 정말 요청만 보내는 기능만 가진 미니멀한 라이브러리
+
+useState, useEffect, useQuery, useMemo, useCallback, useRef
