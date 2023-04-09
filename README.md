@@ -17,5 +17,7 @@
    1) bulls-and-cows : 숫자 야구 게임 토이프로젝트
    2) todo-list : Todo-List 토이프로젝트
    3) github-issue : github-issue 토이프로젝트
-
+   4) kakao-map : 카카오 지도 구현 토이프로젝트
+   5) poke-dex : open api를 활용한 포켓몬 도감 토이프로젝트
+   
 ![image](https://user-images.githubusercontent.com/122018331/227789557-f0e7cf6b-15da-4ba1-987e-5923b28019ea.png)
